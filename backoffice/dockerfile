@@ -1,0 +1,25 @@
+FROM node:14.15.0-alpine AS build-env
+
+WORKDIR /app
+
+COPY . /app
+RUN yarn install
+RUN yarn build
+RUN mkdir tmp \
+    && cp -r build \
+    package.json \
+    yarn.lock \
+    node_modules \
+    tmp
+
+FROM node:14.15.0
+
+WORKDIR /app
+LABEL maintainer="Antoine Lebrun <antoinelmh@hotmail.fr>"
+COPY --from=build-env /app/tmp /app
+
+EXPOSE 8080
+
+USER node
+ENTRYPOINT [ "yarn" ]
+CMD [ "start" ]

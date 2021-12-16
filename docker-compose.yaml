@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  backoffice:
+    image: "node:14.15.0-alpine"
+    restart: unless-stopped
+    container_name: backoffice
+    command: sh -c "yarn run start"
+    volumes:
+        - ./backoffice:/app
+    working_dir: /app
+    environment:
+        PORT: "8080"
+        NODE_ENV: development
+    expose:
+        - "8080"
+    ports:
+        - 8080:8080
+    networks:
+        - network
+networks:
+  network:
+    external: false
