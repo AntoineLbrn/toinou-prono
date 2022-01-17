@@ -1,5 +1,19 @@
 version: "3.9"
 services:
+  postgres:
+    image: postgres:12.5
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: toinou-prono
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      volumes:
+        ./postgres-data:/var/lib/postgresql
+      networks:
+        network
+      container_name: postgres
   backoffice:
     image: "node:14.15.0-alpine"
     restart: unless-stopped
@@ -17,6 +31,20 @@ services:
         - 8080:8080
     networks:
         - network
+  backend:
+    image: node:14.15.0-alpine
+    restart: unless-stopped
+    container_name: backend
+    command: "yarn start:dev"
+    depends_on:
+        - postgres
+    ports:
+      - 8081:8081
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    networks:
+      - network
 networks:
   network:
     external: false
