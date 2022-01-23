@@ -13,6 +13,9 @@ export class User extends BaseEntity {
   @Column()
   isSuperAdmin!: boolean;
 
+  @Column()
+  tagUsedToBe!: string;
+
   @OneToMany(() => UserTournamentParticipation, (participation) => participation.tournament)
   participations?: UserTournamentParticipation[];
 }
