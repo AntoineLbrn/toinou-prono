@@ -1,7 +1,7 @@
 interface User {
     id: string;
     discordUserId: string;
-    isSuperAdmin: string;
+    isSuperAdmin: boolean;
     tagUsedToBe: string;
 }
 

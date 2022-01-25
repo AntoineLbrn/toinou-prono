@@ -3,14 +3,14 @@ import React, { FC, useEffect, useState } from 'react';
 import getAllUsers from '../../../api/users/getAllUsers';
 import User from '../../../models/User';
 
-const Home: FC = () => {
+const AdminUsersList: FC = () => {
     const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
         getAllUsers().then((data) => {
             setUsers(data);
         });
-    }, [])
+    }, []);
 
     return <Container maxW="container.xl">
         <Table color="white" colorScheme="pink" variant='simple'>
@@ -34,4 +34,4 @@ const Home: FC = () => {
   </Container>;
 }
 
-export default Home;
+export default AdminUsersList;

@@ -33,6 +33,19 @@ class UserController {
     return res.json(user);
   }
 
+  async showByDiscordUserId(req: Request, res: Response) {
+    const { discordUserId } = req.params;
+
+    const user = await User.findOne({
+      where: { discordUserId },
+      relations: ["participations"],
+    });
+    if (!user) return res.status(404).send({
+      message: 'No user found with this Discord ID'
+    });
+    return res.json(user);
+  }
+
   async delete(req: Request, res: Response) {
     const { id } = req.params;
 

@@ -1,6 +1,5 @@
 import { Box, Flex, Heading, Image, Link, Spacer } from '@chakra-ui/react';
 import React, { FC } from 'react';
-import DiscordLogButton from '../components/DiscordLogButton';
 import Header from '../components/header/Header';
 import logo from '../logo.png';
 import history from '../utils/history';

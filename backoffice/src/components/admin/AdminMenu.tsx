@@ -12,20 +12,20 @@ const AdminMenu: FC = () => (
         >
             <AdminMenuHeading mt="40px" mb="20px"><Icon mr="5px" as={MdOutlinePeopleAlt} /> UTILISATEURS</AdminMenuHeading>
             <VStack w="100%" spacing="15px">
-                <AdminMenuSubHeading>Liste utilisateurs</AdminMenuSubHeading>
-                <AdminMenuSubHeading>Ajouter un utilisateur</AdminMenuSubHeading>
-                <AdminMenuSubHeading>Rechercher un utilisateur</AdminMenuSubHeading>
+                <AdminMenuSubHeading path="users">Liste utilisateurs</AdminMenuSubHeading>
+                <AdminMenuSubHeading path="users/add">Ajouter un utilisateur</AdminMenuSubHeading>
+                <AdminMenuSubHeading path="users/search">Rechercher un utilisateur</AdminMenuSubHeading>
             </VStack>
             <AdminMenuHeading mt="40px" mb="20px"><Icon mr="5px" as={MdOutlineSportsEsports} /> TOURNOIS DE PRONOS</AdminMenuHeading>
             <VStack w="100%" spacing="15px">
-                <AdminMenuSubHeading>Liste des tounois</AdminMenuSubHeading>
-                <AdminMenuSubHeading>Créer un tournoi</AdminMenuSubHeading>
-                <AdminMenuSubHeading>Administrer un tournoi</AdminMenuSubHeading>
+                <AdminMenuSubHeading path="tournaments">Liste des tounois</AdminMenuSubHeading>
+                <AdminMenuSubHeading path="tournaments/add">Créer un tournoi</AdminMenuSubHeading>
+                <AdminMenuSubHeading path="tournaments/edit">Administrer un tournoi</AdminMenuSubHeading>
             </VStack>
             <AdminMenuHeading mt="40px" mb="20px"><Icon mr="5px" as={MdHouse} /> SERVEURS </AdminMenuHeading>
             <VStack w="100%" spacing="15px">
-                <AdminMenuSubHeading>Liste serveurs</AdminMenuSubHeading>
-                <AdminMenuSubHeading>Administrer un serveur</AdminMenuSubHeading>
+                <AdminMenuSubHeading path="servers">Liste serveurs</AdminMenuSubHeading>
+                <AdminMenuSubHeading path="servers/edit">Administrer un serveur</AdminMenuSubHeading>
             </VStack>
         </VStack>
     </>

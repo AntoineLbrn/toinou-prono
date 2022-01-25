@@ -3,6 +3,8 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import Router from './pages/Router';
 import '@fontsource/raleway/400.css'
 import '@fontsource/open-sans/400.css'
+import SessionProvider from './utils/SessionProvider';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const theme = extendTheme({
   fonts: {
@@ -47,11 +49,16 @@ const theme = extendTheme({
       },
   },
 });
+const queryClient = new QueryClient()
 
 const App: FC = () => {
   return (
     <ChakraProvider theme={theme}>
-      <Router />
+        <QueryClientProvider client={queryClient}>
+            <SessionProvider>
+                <Router />
+            </SessionProvider>
+        </QueryClientProvider>
     </ChakraProvider>
   );
 }
