@@ -15,5 +15,9 @@
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true
     },
-    "include": ["src/**/*"]
+    "include": [
+      "src/**/*",
+      "src",
+      "src", "decs.d.ts"
+    ],
 }
