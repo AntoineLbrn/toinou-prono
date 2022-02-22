@@ -13,18 +13,24 @@ export class ServerTournamentSubscribtion extends BaseEntity {
   @ManyToOne(() => Tournament, (tournament) => tournament.serversSubscriptions)
   tournament: Tournament;
 
-  @Column()
+  @Column({default: false})
   shouldAutoPostBets: boolean;
 
-  @Column()
-  autoPostBetsHour: string;
+  @Column({nullable: true})
+  autoPostBetsHour?: string;
 
-  @Column()
-  autoPostBetsMinutes: string;
+  @Column({nullable: true})
+  autoPostBetsMinutes?: string;
 
-  @Column()
-  bettorRoleId: string;
+  @Column({nullable: true})
+  bettorRoleId?: string;
 
-  @Column()
-  bettorChannelId: string;
+  @Column({nullable: true})
+  bettorRoleLabel?: string;
+
+  @Column({nullable: true})
+  bettorChannelId?: string;
+
+  @Column({nullable: true})
+  bettorChannelLabel?: string;
 }

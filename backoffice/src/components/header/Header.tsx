@@ -8,11 +8,11 @@ import HeaderUserSection from './HeaderUserSection';
 
 const Header: FC = () => {
 
-    return <HeaderFlexOverlay >
+    return <HeaderFlexOverlay>
         <Box width="10%" marginY="auto" height="80%"><HeaderLogo/></Box>
         <HStack height="100%">
             <HeaderSection>mes pronos</HeaderSection>
-            <HeaderSection>intégrer</HeaderSection>
+            <HeaderSection onClick={() => history.push('/servers')}>mes serveurs</HeaderSection>
             <HeaderSection>documentation</HeaderSection>
             <HeaderSection onClick={() => history.push('/admin')}>🔒 admin</HeaderSection>
         </HStack>

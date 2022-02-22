@@ -11,7 +11,8 @@ const AdminMenuHeading = forwardRef<BoxProps, 'div'>((props, ref) => (
             fontSize="lg" 
             color="#ECE6D6"                 
             ref={ref} 
-        {...props} />
+            {...props} 
+        />
     </Container>
 ));
 

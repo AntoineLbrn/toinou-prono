@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UserTournamentParticipation } from "./UserTournamentParticipation";
 import { ServerTournamentSubscribtion } from "./ServerTournamentSubscribtion";
 
@@ -6,6 +6,12 @@ import { ServerTournamentSubscribtion } from "./ServerTournamentSubscribtion";
 export class Tournament extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column('')
+  label: string;
+
+  @Column('')
+  description: string;
 
   @OneToMany(() => UserTournamentParticipation, (participation) => participation.tournament)
   participations: UserTournamentParticipation[];

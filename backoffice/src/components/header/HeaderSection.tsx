@@ -27,7 +27,7 @@ const HeaderSection = forwardRef<BoxProps, 'div'>((props, ref) => {
                 fontSize="2xl" 
                 sx={{ fontVariant: 'small-caps' }}
                 ref={ref} 
-                {...props} 
+                {...props}
             />
         </Box>
     </Center>
