@@ -20,6 +20,9 @@ const connectionOptions: ConnectionOptions = url ? {
   dropSchema: false,
   // Run migrations automatically,
   // you can disable this if you prefer running migration manually.
+  ssl: {
+    rejectUnauthorized: false
+  },
   migrationsRun: true,
   logging: ['warn', 'error'],
   logger: process.env.NODE_ENV === PROD_ENV ? 'file' : 'debug',
