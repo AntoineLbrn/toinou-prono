@@ -5,6 +5,7 @@ const HeaderSection = forwardRef<BoxProps, 'div'>((props, ref) => {
     const [hovered, setHovered] = useState(false);
 
     return <Center 
+        onClick={props.onClick}
         height="100%"
         color="#ECE6D6" 
         border="1px solid transparent"

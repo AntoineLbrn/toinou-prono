@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const useInput = (initialValue: string | null) => {
-  const [value, setValue] = useState(initialValue ? initialValue : '');
+export const useInput = (initialValue: string | undefined) => {
+  const [value, setValue] = useState<string>('');
+
+  useEffect(() => {
+    setValue(initialValue ? initialValue : '');
+  }, [initialValue])
 
   return {
     value,

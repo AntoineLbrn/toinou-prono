@@ -1,9 +1,14 @@
+import { Match } from "./Match";
+import ServerTournamentSubscribtion from "./ServerTournamentSubscription";
+import { UserTournamentParticipation } from "./UserTournamentParticipation";
+
 interface Tournament {
   id: string
   label: string
   description: string
-  //participations: UserTournamentParticipation[]
-  //serversSubscriptions: ServerTournamentSubscribtion[]
+  matches: Match[]
+  participations: UserTournamentParticipation[]
+  serversSubscriptions: ServerTournamentSubscribtion[]
 }
 
 export default Tournament;

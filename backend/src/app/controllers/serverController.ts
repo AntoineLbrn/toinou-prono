@@ -9,6 +9,12 @@ import ServerCreated from "./responseTypes/ServerCreated";
 
 class ServerController {
 
+  async index(req: Request, res: Response) {
+    const servers = await serverService.getAllServers();
+
+    return res.json(servers);
+  }
+
   async add(req: Request, res: Response) {
     log('addServer', LogType.TRIGGERED);
     const discordServer = req.body as DiscordServer;

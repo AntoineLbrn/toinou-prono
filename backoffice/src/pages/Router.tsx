@@ -6,12 +6,25 @@ import AdminUsers from './AdminUsers';
 import Servers from './Servers';
 import AdminTournaments from './AdminTournaments';
 import Server from './Server';
+import Tournaments from './Tournaments';
+import Tournament from './Tournament';
+import AdminServers from './AdminServers';
+import AdminSubscription from './AdminSubscription';
+import AdminTournamentCreate from './AdminTournamentCreate';
+import AdminTournamentEdit from './AdminTournamentEdit';
+import MyBets from './MyBets';
 
 const ConnectedRouter: FC = () => (
     <Switch>
         <Route path="/" exact>
             <Home />
         </Route>
+        <Route path="/tournaments" exact>
+            <Tournaments />
+        </Route>
+        <Route path="/my-bets/:tournamentId" component={MyBets}/>
+        <Route path="/my-bets" component={MyBets}/>
+        <Route path="/tournament/:tournamentId" component={Tournament}/>
         <Route path="/servers" exact>
             <Servers />
         </Route>
@@ -25,6 +38,15 @@ const ConnectedRouter: FC = () => (
         </Route>
         <Route path="/admin/tournaments" exact>
             <AdminTournaments />
+        </Route>
+        <Route path="/admin/tournaments/create" exact>
+            <AdminTournamentCreate />
+        </Route>
+        <Route path="/admin/tournaments/edit/:id" component={AdminTournamentEdit} />
+        <Route path="/admin/servers/subscription/:id" component={AdminSubscription}>
+        </Route>
+        <Route path="/admin/servers" exact>
+            <AdminServers />
         </Route>
         <Redirect to="/" />        
     </Switch>

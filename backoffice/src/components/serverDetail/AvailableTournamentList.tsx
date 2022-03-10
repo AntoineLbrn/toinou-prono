@@ -1,15 +1,9 @@
 import { StackDivider, Box, Spacer, Container, HStack, Heading, Flex, VStack, Button, useDisclosure, Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Icon, Skeleton, Center } from '@chakra-ui/react';
 import React, { FC, useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useParams } from 'react-router';
-import getServerDetail from '../../api/servers/getServerDetail';
 import getAllTournaments from '../../api/tournaments/getAllTournaments';
 import subscribeServerToTournament from '../../api/tournaments/subscribeServerToTournament';
-import ServerTournamentSubscription from '../../models/ServerTournamentSubscription';
 import Tournament from '../../models/Tournament';
-import ServerAsAvatar from '../servers/ServerAsAvatar';
-import TournamentItem from './TournamentItem';
-
 interface AvailableTournamentListProps {
     alreadyJoinedTournaments: string[];
     serverId: string;

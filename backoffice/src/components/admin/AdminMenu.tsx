@@ -19,13 +19,11 @@ const AdminMenu: FC = () => (
             <AdminMenuHeading mt="40px" mb="20px"><Icon mr="5px" as={MdOutlineSportsEsports} /> TOURNOIS DE PRONOS</AdminMenuHeading>
             <VStack w="100%" spacing="15px">
                 <AdminMenuSubHeading path="tournaments">Liste des tounois</AdminMenuSubHeading>
-                <AdminMenuSubHeading path="tournaments/add">Créer un tournoi</AdminMenuSubHeading>
-                <AdminMenuSubHeading path="tournaments/edit">Administrer un tournoi</AdminMenuSubHeading>
+                <AdminMenuSubHeading path="tournaments/create">Créer un tournoi</AdminMenuSubHeading>
             </VStack>
             <AdminMenuHeading mt="40px" mb="20px"><Icon mr="5px" as={MdHouse} /> SERVEURS </AdminMenuHeading>
             <VStack w="100%" spacing="15px">
                 <AdminMenuSubHeading path="servers">Liste serveurs</AdminMenuSubHeading>
-                <AdminMenuSubHeading path="servers/edit">Administrer un serveur</AdminMenuSubHeading>
             </VStack>
         </VStack>
     </>

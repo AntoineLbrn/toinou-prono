@@ -30,6 +30,17 @@ class tournamentSubscriptionController {
             return res.status(400).send();
         })
     }
+
+    async get(req: Request, res: Response) {
+        const { id } = req.params;
+        tournamentSubscriptionService.get(id).then((subscription) => {
+                return res.json(subscription)
+        }).catch((error) => {
+            res.statusMessage = error.toString();
+            return res.status(400).send();
+        })
+    }
+    
 }
 
 export default new tournamentSubscriptionController();

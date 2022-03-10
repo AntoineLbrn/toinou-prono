@@ -9,7 +9,7 @@ const post = async (url: string, body: any) => {
             'Authorization': `Bearer ${getToken()}`,
         },
         body: JSON.stringify(body)
-    });
+    })
     if (!rawResponse.ok) {
         if (rawResponse.status === 401 && rawResponse.statusText === "invalid token") removeToken();
         throw new Error(rawResponse.statusText);

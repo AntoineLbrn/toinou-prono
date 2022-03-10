@@ -9,6 +9,9 @@ export class Server extends BaseEntity {
   @Column({ unique: true })
   discordServerId: string;
 
+  @Column()
+  discordServerNameUsedToBe: string;
+
   @OneToMany(() => ServerTournamentSubscribtion, (subscribedTournament) => subscribedTournament.server)
   subscribedTournaments: ServerTournamentSubscribtion[];
 }

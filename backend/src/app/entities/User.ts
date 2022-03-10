@@ -1,6 +1,5 @@
 import { BaseEntity, Column, Entity, JoinTable, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UserTournamentParticipation } from "./UserTournamentParticipation";
-import { Tournament } from "./Tournament";
 
 @Entity()
 export class User extends BaseEntity {

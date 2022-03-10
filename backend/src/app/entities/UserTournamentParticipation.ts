@@ -1,8 +1,10 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { Tournament } from "./Tournament";
 import { User } from "./User";
+import { Vote } from "./Vote";
 
 @Entity()
+@Unique("user participation", ["tournament", "participant"])
 export class UserTournamentParticipation extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -13,6 +15,12 @@ export class UserTournamentParticipation extends BaseEntity {
   @ManyToOne(() => Tournament, (tournament) => tournament.participations)
   tournament: Tournament;
 
-  @Column()
+  @Column({default: false})
   shouldBeNotified: boolean;
+
+  @OneToMany(() => Vote, (vote) => vote.participation)
+  votes?: Vote[];
+
+  @Column({default: 0})
+  points: number;
 }

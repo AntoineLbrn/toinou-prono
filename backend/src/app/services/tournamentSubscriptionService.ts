@@ -11,14 +11,23 @@ class tournamentSubscriptionService {
         if (!subscription)
             throw new Error('No subscription for the given ID');
         subscription.shouldAutoPostBets = shouldAutoPostBets !== undefined ? shouldAutoPostBets : subscription.shouldAutoPostBets;
-        subscription.autoPostBetsHour = autoPostBetsHour ? autoPostBetsHour : subscription.autoPostBetsHour;
-        subscription.autoPostBetsMinutes = autoPostBetsMinutes ? autoPostBetsMinutes : subscription.autoPostBetsMinutes;
-        subscription.bettorRoleId = bettorRoleId ? bettorRoleId : subscription.bettorRoleId;
-        subscription.bettorRoleLabel = bettorRoleLabel ? bettorRoleLabel : subscription.bettorRoleLabel;
-        subscription.bettorChannelId = bettorChannelId ? bettorChannelId : subscription.bettorChannelId;
-        subscription.bettorChannelLabel = bettorChannelLabel ? bettorChannelLabel : subscription.bettorChannelLabel;
+        subscription.autoPostBetsHour = autoPostBetsHour !== undefined ? autoPostBetsHour : subscription.autoPostBetsHour;
+        subscription.autoPostBetsMinutes = autoPostBetsMinutes !== undefined ? autoPostBetsMinutes : subscription.autoPostBetsMinutes;
+        subscription.bettorRoleId = bettorRoleId !== undefined ? bettorRoleId : subscription.bettorRoleId;
+        subscription.bettorRoleLabel = bettorRoleLabel !== undefined ? bettorRoleLabel : subscription.bettorRoleLabel;
+        subscription.bettorChannelId = bettorChannelId !== undefined ? bettorChannelId : subscription.bettorChannelId;
+        subscription.bettorChannelLabel = bettorChannelLabel !== undefined ? bettorChannelLabel : subscription.bettorChannelLabel;
 
         return subscription.save();
+    }
+
+    async get(id: string): Promise<ServerTournamentSubscribtion> {
+        const subscription = await ServerTournamentSubscribtion.findOne({
+            where: { id }, relations: ['server', 'tournament']
+        });
+        if (!subscription)
+            throw new Error('No subscription for the given ID');
+        return subscription;
     }
 
     async insertNewTournamentSubscription(serverId: string, tournamentId: string): Promise<ServerTournamentSubscribtion> {

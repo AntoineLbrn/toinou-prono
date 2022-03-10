@@ -7,7 +7,8 @@ class ServerService {
     async createServerFromDiscordServer(discordServer: DiscordServer): Promise<Server>{
     try {
         await Server.insert({
-            discordServerId: discordServer.id
+            discordServerId: discordServer.id,
+            discordServerNameUsedToBe: discordServer.name
         });
     } catch (e) {
         throw 'Server already exists';
@@ -27,6 +28,13 @@ class ServerService {
           });
         server.subscribedTournaments = server.subscribedTournaments.sort((a,b) => a.id.localeCompare(b.id));
         return server;
+    }
+
+    async getAllServers(): Promise<Server[]> {
+        const servers = await Server.find({
+            relations: ['subscribedTournaments', 'subscribedTournaments.tournament']
+          });
+        return servers;
     }
 
     async getAggregatedServersByDiscordServer(discordServers: DiscordServer[]): Promise<DiscordServerAggregated[]> {
