@@ -1,7 +1,7 @@
 import { getToken, removeToken } from "../utils/session";
 
 const get = async (url: string) => {
-    const rawResponse = await fetch(`http://${process.env.REACT_APP_API_URL}/${url}`, {
+    const rawResponse = await fetch(`${process.env.REACT_APP_API_URL}/${url}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
