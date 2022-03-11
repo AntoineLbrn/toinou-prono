@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Favicon from 'react-favicon';
+import logo from '../../logo.png';
 
 ReactDOM.render(
     <React.StrictMode>
-      <Favicon url="../../logo.png"/>
+      <Favicon url={logo} />
       <App />
     </React.StrictMode>,
   document.getElementById('root')
