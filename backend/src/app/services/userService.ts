@@ -3,15 +3,17 @@ import DiscordUser from "../models/DiscordUser";
 
 class UserService {
     async createUserIfNotExists(discordUser: DiscordUser): Promise<User> {
-        let user = this.getUserByDiscordUserId(discordUser.id);
+        let user = await this.getUserByDiscordUserId(discordUser.id);
+        console.log(user)
         if (!user) {
             await User.insert({
                 discordUserId: discordUser.id, 
                 isSuperAdmin: false, 
                 tagUsedToBe: `${discordUser.username}${discordUser.discriminator}`
             });
-            user = this.getUserByDiscordUserId(discordUser.id);
+            user = await this.getUserByDiscordUserId(discordUser.id);
         }
+        console.log(user)
     
         return user;
     }
