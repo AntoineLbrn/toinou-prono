@@ -73,6 +73,8 @@ const theme = extendTheme({
 const queryClient = new QueryClient()
 
 const App: FC = () => {
+  document.title = 'Toinou-prono'
+
   return (
     <ChakraProvider theme={theme}>
         <QueryClientProvider client={queryClient}>

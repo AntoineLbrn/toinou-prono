@@ -1,4 +1,3 @@
-import { InfoIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 import { Box, Text, Tooltip } from "@chakra-ui/react";
 import { FC } from "react";
 import { Match } from "../../models/Match";
@@ -20,7 +19,7 @@ const ParticipationVoteBox: FC<ParticipationVoteBoxProps> = ({participation, mat
     const matchVotesAutomaticallyClosed = !match.manualVoteClosing && new Date(match.date).setHours(0,0,0,0) <= today.setHours(0,0,0,0) ;
     const vote = participation?.votes.find((vote) => vote.bet.match.id === match.id);
 
-    return <Box align="right" w="30%">
+    return <Box textAlign="right" w="30%">
         {!participation ?
         <BetResult match={match} />
             : noAvailableBets ? 
