@@ -8143,7 +8143,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.2:
+prop-types@^15.6.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -8327,6 +8327,13 @@ react-fast-compare@^2.0.1:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
+
+react-favicon@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-favicon/-/react-favicon-1.0.0.tgz#5ea69efe74a82fe25a4f89802fb2365520657c1f"
+  integrity sha512-BjiZWXTLRTuwdsp2PhRZMVzPADM+ZPco/3EBRZGTQBLLsrv9D0rzhfQ4BPmVLaZNHPwNURSg2SrOmHyE18eu9g==
+  dependencies:
+    prop-types "^15.8.1"
 
 react-focus-lock@2.5.2:
   version "2.5.2"

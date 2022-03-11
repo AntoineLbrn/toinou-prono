@@ -29,13 +29,3 @@ const BetResult: FC<BetResultProps> = ({match}) => {
 }
 
 export default BetResult
-
-
-
-
-
-
-//RANKING ENDPOINT
-//BOUTON REJOINDRE TOURNOI DANS DETAIL
-//CHANGER "mes paris" SI PAS REJOINT
-//RANKIGN DANS DETAIL
