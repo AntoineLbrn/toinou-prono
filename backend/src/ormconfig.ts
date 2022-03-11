@@ -48,11 +48,11 @@ const connectionOptions: ConnectionOptions = url ? {
   migrationsRun: true,
   logging: ['warn', 'error'],
   logger: process.env.NODE_ENV === PROD_ENV ? 'file' : 'debug',
-  entities: ['dist/app/entities/*.{ts,js}'],
-  migrations: ['dist/database/migrations/*.{ts,js}'],
+  entities: ['src/app/entities/*.{ts,js}'],
+  migrations: ['src/database/migrations/*.{ts,js}'],
   cli: {
-    entitiesDir: 'dist/app/entities',
-    migrationsDir: 'dist/database/migrations'
+    entitiesDir: 'src/app/entities',
+    migrationsDir: 'src/database/migrations'
   }
 }
 

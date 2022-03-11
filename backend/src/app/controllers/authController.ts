@@ -14,6 +14,7 @@ class AuthController {
         const { code, state } = req.body;
         discordService.getDiscordAccessToken(code, state).then((discordToken: DiscordTokenResponse) => {
             discordService.getDiscordUserByToken(discordToken.access_token).then((discordUser: DiscordUser) => {
+                console.log(discordUser);
                 userService.createUserIfNotExists(discordUser).then((user: User) => {
                     const token = authService.generateToken(discordUser.id, discordToken.access_token)
                     log('authenticate', LogType.SUCCESS, token);
