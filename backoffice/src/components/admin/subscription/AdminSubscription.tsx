@@ -3,19 +3,20 @@ import React, { FC, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import getSubscription from '../../../api/subscriptions/getSubsciption';
 import { useInput } from '../../../hooks/useInput';
+import CustomSkeleton from '../../generic/CustomSkeleton';
 import AdminSubscriptionForm from './AdminSubscriptionForm';
 
 interface AdminSubscriptionProps {
     id: string
 }
 const AdminSubscription: FC<AdminSubscriptionProps> = ({ id }: AdminSubscriptionProps) => {
-    const { data: subscription, refetch, isLoading } = useQuery('getSubscription', () => getSubscription(id));
+    const { data: subscription, refetch, error, isLoading } = useQuery('getSubscription' ,() => getSubscription(id));
 
     return <Container maxW="container.xl">
-        <Skeleton isLoaded={!isLoading}>
+        <CustomSkeleton error={error} isLoaded={!isLoading}>
             <Heading my="50px" textAlign="center">{subscription?.server.discordServerNameUsedToBe} - {subscription?.tournament.label}</Heading>
             {subscription && <AdminSubscriptionForm subscription={subscription} refetch={refetch} />}
-        </Skeleton>
+        </CustomSkeleton>
   </Container>;
 }
 

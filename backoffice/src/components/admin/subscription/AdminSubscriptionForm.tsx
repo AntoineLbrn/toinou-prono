@@ -1,9 +1,7 @@
 import { Box, Button, Container, Skeleton, Table, TableCaption, Tbody, Td, Tfoot, Th, Thead, Tr, useCheckbox, useToast, VStack } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import React, { FC, useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
 import updateSubscription from '../../../api/subscriptions/updateSubscription';
-import setupTournamentSubscription from '../../../api/tournaments/setupTournamentSubscription';
 import { useInput } from '../../../hooks/useInput';
 import { useMutationWithFeedback } from '../../../hooks/useMutationWithFeeback';
 import { useBooleanInput } from '../../../hooks/useBooleanInput';

@@ -4,7 +4,6 @@ import DiscordUser from "../models/DiscordUser";
 class UserService {
     async createUserIfNotExists(discordUser: DiscordUser): Promise<User> {
         let user = await this.getUserByDiscordUserId(discordUser.id);
-        console.log(user)
         if (!user) {
             await User.insert({
                 discordUserId: discordUser.id, 
@@ -13,7 +12,6 @@ class UserService {
             });
             user = await this.getUserByDiscordUserId(discordUser.id);
         }
-        console.log(user)
     
         return user;
     }

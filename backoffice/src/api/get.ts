@@ -11,7 +11,7 @@ const get = async (url: string) => {
     });
     if (!rawResponse.ok) {
         if (rawResponse.status === 401 && rawResponse.statusText === "invalid token") removeToken();
-        throw await rawResponse.json;
+        throw new Error(rawResponse.statusText);
     };
     return rawResponse.json();
 }

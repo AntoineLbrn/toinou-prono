@@ -4,6 +4,7 @@ import { useMutation, useQuery } from 'react-query';
 import getAllTournaments from '../../api/tournaments/getAllTournaments';
 import subscribeServerToTournament from '../../api/tournaments/subscribeServerToTournament';
 import Tournament from '../../models/Tournament';
+import CustomSkeleton from '../generic/CustomSkeleton';
 interface AvailableTournamentListProps {
     alreadyJoinedTournaments: string[];
     serverId: string;
@@ -11,7 +12,7 @@ interface AvailableTournamentListProps {
 }
 
 const AvailableTournamentList: FC<AvailableTournamentListProps> = ({alreadyJoinedTournaments, serverId, refetch}: AvailableTournamentListProps) => {
-    const { data } = useQuery('getAllTournaments', getAllTournaments);
+    const { data, isLoading, error } = useQuery('getAllTournaments', getAllTournaments);
     const [tournaments, setTournaments] = useState<Tournament[]>([]);
     const mutation = useMutation((tournamentId: string) => subscribeServerToTournament(serverId, tournamentId), {
         onSuccess: refetch
@@ -22,7 +23,7 @@ const AvailableTournamentList: FC<AvailableTournamentListProps> = ({alreadyJoine
         }
     }, [data, alreadyJoinedTournaments])
     
-    return <Skeleton isLoaded={!!data}>
+    return <CustomSkeleton isLoaded={!isLoading} error={error}>
             <Accordion allowToggle={true} w="100%">
                 {tournaments.map((tournament: Tournament) => {
                     return <AccordionItem key={tournament.id} borderColor="gray.200" py="10px">
@@ -39,7 +40,7 @@ const AvailableTournamentList: FC<AvailableTournamentListProps> = ({alreadyJoine
                 </AccordionItem>
                 })}
             </Accordion>
-        </Skeleton>
+        </CustomSkeleton>
 }
 
 export default AvailableTournamentList;

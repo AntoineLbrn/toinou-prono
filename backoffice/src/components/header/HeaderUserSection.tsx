@@ -33,7 +33,7 @@ const HeaderUserSection: FC = () => {
         _hover={{textDecoration: "none"}}
         href={`https://discord.com/api/oauth2/authorize?response_type=code&client_id=${process.env.REACT_APP_DISCORD_CLIENT_ID}&scope=identify%20guilds%20guilds.join&state=${randomString}&redirect_uri=${process.env.REACT_APP_FRONTEND_URL}&prompt=consent`}
         >
-            <Button bgColor="#ECE6D6" _hover={{bgColor: "#FDF7E7"}} color="1E2F3D">
+            <Button bgColor="#ECE6D6" _hover={{bgColor: "#FDF7E7"}}>
                 Se connecter
             </Button>
         </Link>

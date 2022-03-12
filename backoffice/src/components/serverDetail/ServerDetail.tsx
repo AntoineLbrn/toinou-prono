@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import getServerDetail from '../../api/servers/getServerDetail';
 import ServerTournamentSubscription from '../../models/ServerTournamentSubscription';
 import { canModerateServerTournaments } from '../../utils/permissions';
+import CustomSkeleton from '../generic/CustomSkeleton';
 import ServerAsAvatar from '../servers/ServerAsAvatar';
 import AvailableTournamentList from './AvailableTournamentList';
 import TournamentItem from './TournamentItem';
@@ -13,7 +14,7 @@ interface ServerDetailProps {
 }
 
 const ServerDetail: FC<ServerDetailProps> = ({serverId}: ServerDetailProps) => {
-    const { data, refetch } = useQuery('getServerDetail', () => getServerDetail(serverId));
+    const { data, refetch, error, isLoading } = useQuery('getServerDetail', () => getServerDetail(serverId));
     const [alreadyJoinedTournamentsIds, setAlreadyJoinedTournamentsIds ] = useState<string[]>([]);
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const ServerDetail: FC<ServerDetailProps> = ({serverId}: ServerDetailProps) => {
         }
     }, [data])
     
-    return <Skeleton isLoaded={!!data}>
+    return <CustomSkeleton isLoaded={!isLoading} error={error}>
             {data && <Box>
                 <Container mt="50px" maxW="container.lg" boxShadow="0 0 .2rem #fff, 0 0 .2rem #fff" bgColor="#1E2F3D">
                     <Container py="30px" maxW="container.lg"> 
@@ -40,7 +41,7 @@ const ServerDetail: FC<ServerDetailProps> = ({serverId}: ServerDetailProps) => {
                     </Container>
                 </Container>
             </Box>}
-        </Skeleton>
+        </CustomSkeleton>
 }
 
 export default ServerDetail;
