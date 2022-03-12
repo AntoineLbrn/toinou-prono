@@ -5,7 +5,7 @@ import Tournament from "../../models/Tournament";
 
 interface JoinTournamentButtonProps extends ButtonProps {
     tournamentId: string
-    refetch: () => void
+    refetch?: () => void
 }
 
 const JoinTournamentButton = forwardRef<JoinTournamentButtonProps, 'button'>(({tournamentId, refetch, ...props}: JoinTournamentButtonProps, ref) => {
