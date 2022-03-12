@@ -32,7 +32,7 @@ const HeaderMobile: FC<HeaderMobileProps> = ({currentPathname}) => {
             <Box w="5%" />
         </Flex> 
         <SlideFade in={value}>
-            <HeaderMobileOptions headerTabs={headerTabs} />
+            <HeaderMobileOptions isActive={value} headerTabs={headerTabs} />
         </SlideFade>
         </>
 }

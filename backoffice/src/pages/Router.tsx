@@ -13,6 +13,7 @@ import AdminSubscription from './AdminSubscription';
 import AdminTournamentCreate from './AdminTournamentCreate';
 import AdminTournamentEdit from './AdminTournamentEdit';
 import MyBets from './MyBets';
+import { getToken } from '../utils/session';
 
 const ConnectedRouter: FC = () => (
     <Switch>
@@ -57,9 +58,6 @@ const DisconnectedRouter: FC = () => (
         <Route path="/" exact>
             <Home />
         </Route>
-        <Route path="/servers" exact>
-            <Servers />
-        </Route>
         <Redirect to="/" />
     </Switch>
 );
@@ -73,9 +71,10 @@ const Routes: FC<RoutesProps> = ({ userIsConnected }: RoutesProps) => {
 };
 
 const Router: FC = () => {
+    const isConnected = !!getToken();
     return (
         <BaseRouter history={history}>
-            <Routes userIsConnected={true} />
+            <Routes userIsConnected={isConnected} />
         </BaseRouter>
     );
 };

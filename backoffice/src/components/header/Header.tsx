@@ -17,7 +17,7 @@ const Header: FC = () => {
         <Box width="10%" marginY="auto" height="80%"><HeaderLogo/></Box>
         <HStack height="100%">
             {headerTabs.map((headerTab) => (
-                <HeaderSection isActive={history.location.pathname === headerTab.url} onClick={() => history.push(headerTab.url)}>{headerTab.label}</HeaderSection>
+                <HeaderSection key={headerTab.url} isActive={history.location.pathname === headerTab.url} onClick={() => history.push(headerTab.url)}>{headerTab.label}</HeaderSection>
             ))}
         </HStack>
         <Spacer />

@@ -1,11 +1,12 @@
 import { Box, Flex, Heading, Image, Link, Spacer } from '@chakra-ui/react';
 import React, { FC } from 'react';
 import Header from '../components/header/Header';
-import logo from '../logo.png';
-import history from '../utils/history';
+import Home from '../components/home/Home';
 
-const Home: FC = () => {
-    return <Header />;
+const HomePage: FC = () => {
+    return <><Header />
+        <Home />
+    </>;
 }
 
-export default Home;
+export default HomePage;
