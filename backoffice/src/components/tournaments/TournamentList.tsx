@@ -10,6 +10,7 @@ import Tournament from '../../models/Tournament';
 import { doesFilterMatch } from '../../utils/doesFilterMatch';
 import getCurrentUserParticipations from '../../api/userTournamentParticipations/getCurrentUserParticipations';
 import TournamentItem from './TournamentItem';
+import TournamentListTitle from './TournamentListTitle';
 
 const TournamentList: FC = () => {
     const { data, refetch, isLoading: isTournamentLoading } = useQuery('getTournaments', getAllTournaments);
@@ -24,7 +25,8 @@ const TournamentList: FC = () => {
         <Box>
             <Container mt="50px" maxW="container.lg" boxShadow="0 0 .2rem #fff, 0 0 .2rem #fff" bgColor="#1E2F3D">
                 <Container py="30px" maxW="container.lg">
-                    <HStack mb='30px'>
+                    <TournamentListTitle />
+                    <HStack my='40px'>
                         <SearchIcon />
                         <FilterTournamentInput placeholder='Rechercher une compétition' {...bindFilter} />
                     </HStack>
