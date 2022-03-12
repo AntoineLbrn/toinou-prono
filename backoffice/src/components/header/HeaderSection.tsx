@@ -1,7 +1,11 @@
 import { forwardRef, BoxProps, Heading, Center, Box } from '@chakra-ui/react'
 import { useState } from 'react';
 
-const HeaderSection = forwardRef<BoxProps, 'div'>((props, ref) => {
+interface HeaderSectionProps extends BoxProps {
+    isActive: boolean
+}
+
+const HeaderSection = forwardRef<HeaderSectionProps, 'div'>((props, ref) => {
     const [hovered, setHovered] = useState(false);
 
     return <Center 
@@ -17,7 +21,7 @@ const HeaderSection = forwardRef<BoxProps, 'div'>((props, ref) => {
         <Box 
             paddingY="10px"         
             borderBottom="2px solid"
-            borderColor={hovered ? '#20FCFF' : 'transparent'}
+            borderColor={hovered || props.isActive ? '#20FCFF' : 'transparent'}
         >
             <Heading 
                 padding="10px"
