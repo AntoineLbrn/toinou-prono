@@ -1,4 +1,5 @@
 import axios from 'axios';
+import ApiError from './errors/ApiError';
 
 const get = async (url: string) => {
     return axios.get(`${process.env.API_URL}/${url}`, {
@@ -10,7 +11,7 @@ const get = async (url: string) => {
     }).then((res) => {
         return res.data;
     }).catch((err) =>{
-        throw new Error(`Error ${err.response.status} : ${err.response.statusText}`);
+        throw new ApiError(err.response.statusText);
     });
 }
 
