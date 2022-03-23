@@ -3,7 +3,7 @@ import { UserTournamentParticipation } from "../../models/UserTournamentParticip
 import get from "../get";
 
 const getCurrentUserParticipations = async (args: {tournamentId: string}): Promise<UserTournamentParticipation> => {
-    return get(`user-tournament-participation/${args.tournamentId}`).then((data) => data as UserTournamentParticipation);
+    return get(`user-tournament-participation/tournament-id=${args.tournamentId}`).then((data) => data as UserTournamentParticipation);
 }
 
 export default getCurrentUserParticipations;

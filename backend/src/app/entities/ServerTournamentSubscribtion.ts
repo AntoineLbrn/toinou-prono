@@ -1,8 +1,9 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { Server } from "./Server";
 import { Tournament } from "./Tournament";
 
 @Entity()
+@Unique("server subscription", ["tournament", "server"])
 export class ServerTournamentSubscribtion extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

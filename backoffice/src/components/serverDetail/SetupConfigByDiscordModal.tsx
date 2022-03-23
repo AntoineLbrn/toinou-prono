@@ -18,7 +18,7 @@ const SetupConfigByDiscordModal: FC<SetupConfigByDiscordModalProps> = ({isOpen, 
         <ModalCloseButton />
         <ModalBody>
             <Text>Pour valider cette configuration, tape</Text>
-            <Text my="10px" ><Kbd fontSize="lg">!validateConfig {tournamentName}</Kbd></Text>
+            <Text my="10px" ><Kbd fontSize="lg">/config {tournamentName}</Kbd></Text>
             <Text>dans un channel de ton serveur !</Text>
         </ModalBody>
         <ModalFooter>

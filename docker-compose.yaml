@@ -45,6 +45,18 @@ services:
     working_dir: /app
     networks:
       - network
+  bot:
+    image: node:16.6.0-alpine
+    restart: unless-stopped
+    container_name: bot
+    command: "yarn start:dev"
+    ports:
+      - 8082:8082
+    volumes:
+      - ./bot:/app
+    working_dir: /app
+    networks:
+      - network
 networks:
   network:
     external: false

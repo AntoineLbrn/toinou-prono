@@ -1,4 +1,4 @@
-import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Button, Center, Flex, Heading, HStack, Input, Spacer, useDisclosure, useToast, VStack } from "@chakra-ui/react";
+import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Text, Box, Button, Center, Flex, Heading, HStack, Input, Kbd, Spacer, useDisclosure, useToast, VStack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { FC, useEffect } from "react";
 import { useMutation } from "react-query";
@@ -45,6 +45,7 @@ const TournamentItem: FC<TournamentItemProps> = ({serverTournamentSubscription, 
                         <ServerConfigRow label="Channel" disabled={!!serverTournamentSubscription.bettorChannelLabel} input={bindChannel} />
                         {!isSubscriptionSetup && <Button type="submit">{mutation.isLoading ? '...' : 'Valider'}</Button>}
                         {isSubscriptionSetup && <SchedulePronoForm refetch={refetch} subscription={serverTournamentSubscription} />}
+                        {isSubscriptionSetup && <Text my="10px" ><Kbd fontSize="lg">/config {serverTournamentSubscription.tournament.label}</Kbd></Text>}
                     </VStack>
                 </Form>
             </Formik>

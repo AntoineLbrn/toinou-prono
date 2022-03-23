@@ -37,6 +37,19 @@ class UserTournamentParticipationController {
         });
     }
 
+    async getByDiscordUserId(req: Request, res: Response) {
+        const { discordUserId } = req.params;
+
+        userTournamentParticipationService.get({discordUserId})
+        .then((participations) => {
+            return res.json(participations)
+        })
+        .catch((error) => {
+            res.statusMessage = error.toString();
+            return res.status(400).send();
+        });
+    }
+
     async getByUserAndTournament(req: Request, res: Response) {
         const discordUserId = res.locals.jwtPayload.discordUserId;
         const { tournamentId } = req.params;

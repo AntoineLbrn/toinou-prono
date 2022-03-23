@@ -21,6 +21,19 @@ class tournamentSubscriptionController {
             });
     }
 
+
+    async getByDiscordServerId(req: Request, res: Response) {
+        const { discordServerId } = req.params;
+        tournamentSubscriptionService.getByDiscordServerId({discordServerId})
+        .then((tournament) => {
+          return res.json(tournament)
+        })
+        .catch((error) => {
+          res.statusMessage = error.toString();
+          return res.status(400).send();
+        });
+    }
+
     async create(req: Request, res: Response) {
         const {serverId, tournamentId} = req.body;
         tournamentSubscriptionService.insertNewTournamentSubscription(serverId, tournamentId).then((subscription) => {

@@ -17,9 +17,12 @@ class ServerService {
     }
 
     async getServerByDiscordServerId(discordServerId: string): Promise<Server> {
-        return await Server.findOne({
+        const server = await Server.findOne({
             where: { discordServerId },
-          });
+        });
+        if (!server)
+            throw new Error('No server found for this discord server ID')
+        return server;
     }
 
     async getServerDetail(id: string): Promise<Server> {
@@ -42,8 +45,12 @@ class ServerService {
     }
 
     async getAggregatedServerServerByDiscordServer(discordServer: DiscordServer): Promise<DiscordServerAggregated> {
-        console.log({ discordServer: discordServer, server: await this.getServerByDiscordServerId(discordServer.id) })
-        return { discordServer: discordServer, server: await this.getServerByDiscordServerId(discordServer.id) };
+        try {
+            const server = await this.getServerByDiscordServerId(discordServer.id);
+            return { discordServer: discordServer, server};
+        } catch {
+            return { discordServer: discordServer, server: undefined };
+        }
     }
 }
 

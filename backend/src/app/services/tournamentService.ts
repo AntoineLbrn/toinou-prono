@@ -3,6 +3,7 @@ import { ServerTournamentSubscribtion } from "../entities/ServerTournamentSubscr
 import { Tournament } from "../entities/Tournament";
 import { User } from "../entities/User";
 import { UserTournamentParticipation } from "../entities/UserTournamentParticipation";
+import serverService from "./serverService";
 
 class tournamentService {
     

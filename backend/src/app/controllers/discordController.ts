@@ -34,11 +34,13 @@ class DiscordController {
                 return res.json(aggregatedServers);
             }).catch((error) => {
                 log('getServers', LogType.FAILED, error);
-                return res.status(400).send('failed retrieving servers');
+                res.statusMessage = 'failed retrieving servers';
+                return res.status(400).send();
             });
         }).catch((error) => {
             log('getServers', LogType.FAILED, error);
-            return res.status(401).send('invalid token');
+            res.statusMessage = 'invalid token';
+            return res.status(400).send();
         });
     }
 }

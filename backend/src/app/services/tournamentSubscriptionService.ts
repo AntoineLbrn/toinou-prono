@@ -1,6 +1,7 @@
 import { Server } from "../entities/Server";
 import { ServerTournamentSubscribtion } from "../entities/ServerTournamentSubscribtion";
 import { Tournament } from "../entities/Tournament";
+import serverService from "./serverService";
 
 class tournamentSubscriptionService {
     
@@ -28,6 +29,11 @@ class tournamentSubscriptionService {
         if (!subscription)
             throw new Error('No subscription for the given ID');
         return subscription;
+    }
+
+    async getByDiscordServerId(args: {discordServerId: string}): Promise<ServerTournamentSubscribtion[]> {
+        const server = await serverService.getServerByDiscordServerId(args.discordServerId);
+        return ServerTournamentSubscribtion.find({where: { server }, relations: ['tournament', 'tournament.matches', 'tournament.matches.bets']});
     }
 
     async insertNewTournamentSubscription(serverId: string, tournamentId: string): Promise<ServerTournamentSubscribtion> {

@@ -12,7 +12,7 @@ import userTournamentParticipationController from './app/controllers/userTournam
 import voteController from './app/controllers/voteController';
 import checkEditChannelAndRolesPermissions from './app/middlewares/checkEditChannelAndRolesPermissions';
 import checkRoles from './app/middlewares/checkroles';
-import checkJWT from './app/middlewares/security';
+import checkJWT, { checkApiKey, checkJWTOrApiKey } from './app/middlewares/security';
 import Roles from './app/utils/roles';
 
 const routes = Router();
@@ -29,7 +29,7 @@ routes.get("/discord/servers", checkJWT, discordController.getServers, );
 routes.post("/server/add", checkJWT, serverController.add);
 
 routes.get("/server/:id", checkJWT, serverController.get);
-routes.get("/tournament/:id", checkJWT, tournamentController.get);
+routes.get("/tournament/:id", checkJWTOrApiKey, tournamentController.get);
 routes.get("/tournaments", [checkJWT], tournamentController.index);
 routes.get("/servers", [checkJWT], serverController.index);
 
@@ -87,16 +87,30 @@ routes.post("/vote/create", [
   check("betId", "betId is required").notEmpty(),
 ], voteController.create)
 
+routes.put("/vote", [
+  checkApiKey, 
+  check("betId", "betId is required").notEmpty(),
+  check("discordUserId", "discordUserId is required").notEmpty(),
+], voteController.edit)
+
 routes.get("/user-tournament-participation", [
   checkJWT, 
 ], userTournamentParticipationController.getByUser)
 
-routes.get("/user-tournament-participation/:tournamentId", [
+routes.get("/user-tournament-participation/tournament-id=:tournamentId", [
   checkJWT, 
 ], userTournamentParticipationController.getByUserAndTournament);
 
 routes.get("/rank/:tournamentId", [
   checkJWT, 
 ], userTournamentParticipationController.getRank);
+
+routes.get("/tournaments/:discordServerId", [
+  checkApiKey,
+], tournamentSubscriptionController.getByDiscordServerId)
+
+routes.get("/user-tournament-participation/discord-user-id=:discordUserId", [
+  checkApiKey,
+], userTournamentParticipationController.getByDiscordUserId)
 
 export default routes;
