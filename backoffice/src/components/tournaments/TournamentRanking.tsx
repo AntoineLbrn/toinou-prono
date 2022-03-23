@@ -21,7 +21,7 @@ const TournamentRanking: FC<TournamentRankingProps> = ({participations}: Tournam
         </Center>
         <VStack mt="30px">
             {ranking.map((participation, rank) => (
-            <Flex w="100%">
+            <Flex w="100%" key={participation.id}>
                 <Box>
                     {rank + 1} - {participation.participant.tagUsedToBe}
                 </Box>
