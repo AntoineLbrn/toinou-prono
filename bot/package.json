@@ -1,0 +1,30 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "discord bot",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "@discordx/importer": "^1.1.2",
+    "@types/node-fetch": "^2.6.1",
+    "axios": "^0.26.1",
+    "discord.js": "^13.6.0",
+    "discordx": "^9.4.1",
+    "dotenv": "^16.0.0",
+    "fetch": "^1.1.0",
+    "moment": "^2.29.1",
+    "node-fetch": "^3.2.3",
+    "reflect-metadata": "^0.1.13"
+  },
+  "scripts": {
+    "build": "tsc --project ./",
+    "start:dev": "nodemon src/index.ts",
+    "start": "node dist/index.js"
+  }
+}

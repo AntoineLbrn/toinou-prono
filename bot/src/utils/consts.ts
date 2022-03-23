@@ -1,0 +1,1 @@
+export const MAX_BUTTONS_PER_MESSAGE = 5;
