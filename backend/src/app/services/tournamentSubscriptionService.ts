@@ -1,6 +1,7 @@
 import { Server } from "../entities/Server";
 import { ServerTournamentSubscribtion } from "../entities/ServerTournamentSubscribtion";
 import { Tournament } from "../entities/Tournament";
+import CustomError from "../errors/CustomError";
 import serverService from "./serverService";
 
 class tournamentSubscriptionService {
@@ -34,6 +35,16 @@ class tournamentSubscriptionService {
     async getByDiscordServerId(args: {discordServerId: string}): Promise<ServerTournamentSubscribtion[]> {
         const server = await serverService.getServerByDiscordServerId(args.discordServerId);
         return ServerTournamentSubscribtion.find({where: { server }, relations: ['tournament', 'tournament.matches', 'tournament.matches.bets']});
+    }
+
+    async getByLabelAndServerId(label: string, serverId: string): Promise<ServerTournamentSubscribtion> {
+        const tournament = await Tournament.findOne({label: label});
+        if (!tournament)
+            throw new CustomError(3);
+        const server = await Server.findOne({discordServerId: serverId});
+        if (!server)
+            throw new CustomError(3);
+        return ServerTournamentSubscribtion.findOne({tournament, server});
     }
 
     async insertNewTournamentSubscription(serverId: string, tournamentId: string): Promise<ServerTournamentSubscribtion> {

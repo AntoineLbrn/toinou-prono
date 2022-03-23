@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
+import { ServerTournamentSubscribtion } from "../entities/ServerTournamentSubscribtion";
 import tournamentSubscriptionService from "../services/tournamentSubscriptionService";
 
 class tournamentSubscriptionController {
@@ -53,7 +54,16 @@ class tournamentSubscriptionController {
             return res.status(400).send();
         })
     }
-    
+
+    async getByLabelAndServerId(req: Request, res: Response) {
+        const { label, serverId } = req.params;
+        tournamentSubscriptionService.getByLabelAndServerId(label, serverId).then((subscription: ServerTournamentSubscribtion) => {
+          return res.status(201).json(subscription);
+        }).catch((error) => {
+          res.statusMessage = error.code + ' ' + error.toString();
+          return res.status(400).send();
+        });
+      }
 }
 
 export default new tournamentSubscriptionController();
