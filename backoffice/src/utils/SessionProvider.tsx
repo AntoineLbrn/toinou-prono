@@ -1,7 +1,6 @@
 import { FC, useEffect } from "react";
 import { useQuery } from "react-query";
 import getAccessToken from "../api/getAccessToken";
-import { getToken } from "./session";
 
 const SessionProvider: FC = (props) => {
     const query = new URLSearchParams(window.location.search);

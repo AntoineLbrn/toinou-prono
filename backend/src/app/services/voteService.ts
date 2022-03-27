@@ -36,7 +36,7 @@ class voteService {
     async editOrCreate(editVoteArgs: {discordUserId: string, betId: string}): Promise<Vote> {
         const user = await User.findOne({where: {discordUserId: editVoteArgs.discordUserId}});
         if (!user)
-            throw new Error('No User found for the given ID');
+            throw new CustomError(6);
 
         const bet = await Bet.findOne(editVoteArgs.betId, {relations: ['match', 'match.tournament']});
         if (!bet)
@@ -51,7 +51,7 @@ class voteService {
 
 
         let vote = await Vote.findOne({
-            where: { match: bet.match, participation },
+            where: { match: bet.match, participation }, relations: ['match']
         });
         if (vote) {
             vote.bet = bet;
@@ -60,7 +60,7 @@ class voteService {
                 bet,
                 participation,
                 match: bet.match
-            });
+            },);
         }
         return vote.save();
     }

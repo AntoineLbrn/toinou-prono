@@ -17,6 +17,7 @@ const ParticipationVoteBox: FC<ParticipationVoteBoxProps> = ({participation, mat
     const noAvailableBets = !match.bets.length;
     const matchVotesManuallyClosed = match.manualVoteClosing && match.isVoteClosed;
     const matchVotesAutomaticallyClosed = !match.manualVoteClosing && new Date(match.date).setHours(0,0,0,0) <= today.setHours(0,0,0,0) ;
+    const votable = !matchVotesManuallyClosed && !match.manualVoteClosing && !matchVotesAutomaticallyClosed
     const vote = participation?.votes.find((vote) => vote.bet.match.id === match.id);
 
     return <Box textAlign="right" w="30%">
@@ -24,12 +25,9 @@ const ParticipationVoteBox: FC<ParticipationVoteBoxProps> = ({participation, mat
         <BetResult match={match} />
             : noAvailableBets ? 
             "Aucun pari dispo ❓" 
-                : vote ? 
-                <VoteResult vote={vote} />
-                    : matchVotesManuallyClosed || matchVotesAutomaticallyClosed ? 
-                    "Paris fermés 🚫" 
-                        :
-                        <VoteForm refetch={refetch} availableBets={match.bets}   />
+                : vote || votable ?
+                <VoteResult votable={votable} refetch={refetch} availableBets={match.bets} vote={vote} />
+                   : "Paris fermés 🚫" 
         }
 
     </Box>

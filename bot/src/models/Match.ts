@@ -1,5 +1,6 @@
 import { Bet } from "./Bet";
 import Tournament from "./Tournament";
+import { Vote } from "./Vote";
 
 export interface Match {
   id: string;
@@ -19,4 +20,6 @@ export interface Match {
   tournament: Tournament;
   
   bets: Bet[];
+
+  votes: Vote[];
 }

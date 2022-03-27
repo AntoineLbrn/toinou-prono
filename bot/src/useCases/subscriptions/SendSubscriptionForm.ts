@@ -1,20 +1,17 @@
-import { CommandInteraction, MessageActionRow, MessageSelectMenu } from "discord.js";
+import { CommandInteraction, MessageActionRow } from "discord.js";
 import RoleSelect from "../../components/selects/RoleSelect";
 import ChannelSelect from "../../components/selects/ChannelSelect";
 import ServerTournamentSubscribtion from "../../models/ServerTournamentSubscription";
-import ConfigurationValidationButton from "../../components/buttons/ConfigurationValidationButton";
 
 class SendSubscriptionForm {
     public async execute (args: {subscription: ServerTournamentSubscribtion, interaction: CommandInteraction}): Promise<void> {
         if (args.interaction.guild) {
-            const row = new MessageActionRow()
-                .addComponents(
-                    new ChannelSelect(args.interaction.guild.channels),
-                    new RoleSelect(args.interaction.guild.roles),
-                    new ConfigurationValidationButton(args.subscription)
-                );
-            
-            args.interaction.reply({ content: 'Sélectionne un channel et un rôle puis clicke sur terminer', components: [row] });    
+            const channelSelect = new MessageActionRow().addComponents(new ChannelSelect(args.interaction.guild.channels, args.subscription));
+            const roleSelect = new MessageActionRow().addComponents(new RoleSelect(args.interaction.guild.roles, args.subscription));
+
+            args.interaction.reply({ content: 'Sélectionne un rôle puis un channel'});    
+            args.interaction.channel?.send({components: [roleSelect]});
+            args.interaction.channel?.send({components: [channelSelect]});
         }
     }
 }

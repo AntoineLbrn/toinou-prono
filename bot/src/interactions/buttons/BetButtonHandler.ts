@@ -7,17 +7,15 @@ import sendVote from "../../api/votes/sendVote";
 @Discord()
 class BetButtonHandler {
     @ButtonComponent(new RegExp("^bet-button ."), )
-    @Guard(isAdminOrDM)
     handle(interaction: ButtonInteraction) {
+        interaction.deferUpdate();
         const betId = interaction.customId.split(' ')[1];
         sendVote({betId, discordUserId: interaction.user.id}).then(async (vote: Vote) => {
-            await interaction.deferReply();
-            interaction.editReply({
-                content: `Vote bien enregistré: ${vote.bet.label}`,
+            interaction.user.send({
+                content: `Vote bien enregistré: ${vote.bet.label} (${vote.match.label})`,
             });
         }).catch(async (err) => {
-            await interaction.deferReply();
-            interaction.editReply(err.message);
+            interaction.user.send(err.message);
         });
     }
 }

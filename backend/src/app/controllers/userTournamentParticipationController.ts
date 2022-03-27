@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
+import Ranking from "../models/Ranking";
 import matchService from "../services/matchService";
 import userTournamentParticipationService from "../services/userTournamentParticipationService";
 
@@ -74,6 +75,16 @@ class UserTournamentParticipationController {
           return res.status(400).send();
         });
       }
+
+    async getRankByTournamentLabelAndDiscordUserId(req: Request, res: Response) {
+    const { tournamentLabel, discordUserId  } = req.params;
+    userTournamentParticipationService.getRankByTournamentLabelAndDiscordUserId({discordUserId, tournamentLabel}).then((rank: Ranking) => {
+        return res.status(201).json(rank);
+    }).catch((error) => {
+        res.statusMessage =  error.code + ' ' + error.toString();
+        return res.status(400).send();
+    });
+    }
 }
 
 export default new UserTournamentParticipationController();

@@ -5,8 +5,8 @@ import getSubscriptionByTournamentLabelAndServerId from "../../api/subscriptions
 import isAdmin from "../../decorators/isAdmin";
 import isSubscriptionConfigured from "../../utils/isSubscriptionConfigured";
 import CreateRoleAndChannel from "../../useCases/subscriptions/CreateRoleAndChannel";
-import sendSubscriptionRoleAndChannelIds from "../../api/subscriptions/sendSubscriptionRoleAndChannelIds";
 import SendSubscriptionForm from "../../useCases/subscriptions/SendSubscriptionForm";
+import sendSubscriptionRoleAndChannel from "../../api/subscriptions/sendSubscriptionRoleAndChannel";
 
 @Discord()
 abstract class Config {
@@ -23,7 +23,7 @@ abstract class Config {
                     interaction.reply(`Compétition déjà configurée (role : ${role}) (channel : ${channel})`);
                 } else {
                     CreateRoleAndChannel.execute({interaction, subscription}).then(({role, channel}) => {
-                        sendSubscriptionRoleAndChannelIds({id: subscription.id, bettorRoleId: role.id, bettorChannelId: channel.id})
+                        sendSubscriptionRoleAndChannel({id: subscription.id, bettorRoleId: role.id, bettorChannelId: channel.id})
                     });
                 }
             } else {

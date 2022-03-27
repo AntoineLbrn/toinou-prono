@@ -4,6 +4,8 @@ import userTournamentParticipationController from "../app/controllers/userTourna
 import checkJWT, { checkApiKey } from "../app/middlewares/security";
 
 export const useParticipationRoutes = (routes: Router) => {
+
+
     routes.post("/user-tournament-participation/create", [
         checkJWT, 
         check("tournamentId", "tournamentId is required").notEmpty(),
@@ -23,8 +25,14 @@ export const useParticipationRoutes = (routes: Router) => {
         checkApiKey,
     ], userTournamentParticipationController.getByDiscordUserId)
 
+    routes.get("/rank/tournamentLabel=:tournamentLabel&discordUserId=:discordUserId", [
+        checkApiKey, 
+        check("tournamentLabel", "tournamentLabel is required").notEmpty(),
+        check("discordUserId", "discordUserId is required").notEmpty(),
+    ], userTournamentParticipationController.getRankByTournamentLabelAndDiscordUserId)
 
     routes.get("/rank/:tournamentId", [
         checkJWT, 
     ], userTournamentParticipationController.getRank);
+    
 }
