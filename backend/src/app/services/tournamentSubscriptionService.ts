@@ -44,7 +44,7 @@ class tournamentSubscriptionService {
         const server = await Server.findOne({discordServerId: serverId});
         if (!server)
             throw new CustomError(3);
-        return ServerTournamentSubscribtion.findOne({tournament, server});
+        return ServerTournamentSubscribtion.findOne({tournament, server}, {relations: ['tournament']});
     }
 
     async insertNewTournamentSubscription(serverId: string, tournamentId: string): Promise<ServerTournamentSubscribtion> {

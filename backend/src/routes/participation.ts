@@ -34,5 +34,11 @@ export const useParticipationRoutes = (routes: Router) => {
     routes.get("/rank/:tournamentId", [
         checkJWT, 
     ], userTournamentParticipationController.getRank);
-    
+
+    routes.post("/participation", [
+        checkApiKey,         
+        check("tournamentId", "tournamentLabel is required").notEmpty(),
+        check("discordUserId", "discordUserId is required").notEmpty(),
+    ], userTournamentParticipationController.create);
+
 }

@@ -36,6 +36,13 @@ class tournamentService {
         return ranking.findIndex((participation) => participation.participant.id === args.user.id) + 1;
     }
 
+    async getByLabel(label: string): Promise<Tournament> {
+        const tournament = await Tournament.findOne({where: {label}, relations: ['matches', 'matches.bets']});
+        if (!tournament)
+            throw new CustomError(3);
+        return tournament;
+    }
+
     computeRanking(args: { participations: UserTournamentParticipation[] }): UserTournamentParticipation[] {
         return args.participations.sort((a,b) => b.points - a.points);
     }

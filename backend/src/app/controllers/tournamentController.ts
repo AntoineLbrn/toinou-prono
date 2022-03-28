@@ -32,6 +32,16 @@ class TournamentController {
       });
     }
 
+    async getByLabel(req: Request, res: Response) {
+      const { label } = req.params;
+      tournamentService.getByLabel(label).then((tournament: Tournament) => {
+        return res.status(201).json(tournament);
+      }).catch((error) => {
+        res.statusMessage =  error.code + ' ' + error.toString();
+        return res.status(400).send();
+      });
+    }
+
     async edit(req: Request, res: Response) {
       const err = validationResult(req);
       if (! err.isEmpty()) {

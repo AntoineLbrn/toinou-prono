@@ -10,6 +10,8 @@ const statusCodeMappedToString = (code: string): string => {
             return "Tu n'es pas inscrit·e à ce tournoi..."
         case '6':
             return "Tu n'es inscrit·e à aucun tournoi..."
+        case '7':
+            return "Tu es déjà inscrit·e à ce tournoi..."
         default:
             return `Erreur inconnue : ${code}`
     }
@@ -18,7 +20,6 @@ const statusCodeMappedToString = (code: string): string => {
 
 class ApiError extends Error {
     constructor(statusText: string) {
-        console.log(statusText)
         super(statusCodeMappedToString(statusText.split(' ')[0]));
     }
 }

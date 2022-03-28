@@ -12,15 +12,15 @@ class UserTournamentParticipationController {
             res.statusMessage = JSON.stringify(err.mapped())
             return res.status(400).send();
         }
-        const discordUserId = res.locals.jwtPayload.discordUserId;
+        const oAuthDiscordUserId = res.locals.jwtPayload?.discordUserId;
 
-        const { tournamentId } = req.body;
-        userTournamentParticipationService.create(tournamentId, discordUserId)
+        const { tournamentId, discordUserId } = req.body;
+        userTournamentParticipationService.create(tournamentId, discordUserId ? discordUserId : oAuthDiscordUserId)
         .then((newParticipation) => {
             return res.json(newParticipation)
         })
         .catch((error) => {
-            res.statusMessage = error.toString();
+            res.statusMessage =  error.code + ' ' + error.toString();
             return res.status(400).send();
         });
     }

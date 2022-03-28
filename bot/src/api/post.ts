@@ -1,6 +1,7 @@
 import axios from 'axios';
 import ApiError from './errors/ApiError'
 const post = async (url: string, body: any) => {
+    console.log('posting')
     return axios.post(`${process.env.API_URL}/${url}`, body, {
         headers: {
             'Content-Type': 'application/json',
@@ -9,7 +10,7 @@ const post = async (url: string, body: any) => {
         },
     }).then((res) => {
         return res.data;
-    }).catch((err) =>{
+    }).catch((err) => {
         throw new ApiError(err.response.statusText);
     });
 }

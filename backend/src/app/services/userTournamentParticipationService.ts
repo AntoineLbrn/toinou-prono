@@ -16,6 +16,11 @@ class userTournamentParticipationService {
         const user = await User.findOne({where: {discordUserId}});
             if (!user)
                 throw new Error('No user found for the given ID');
+
+        const participation = await UserTournamentParticipation.findOne({where: {participant: user, tournament}});
+        if (participation)
+            throw new CustomError(7);
+
         const newParticipation = await UserTournamentParticipation.create({
             participant: user,
             tournament,

@@ -5,6 +5,7 @@ const errors = new Map<number, string>([
     [4, "This server does not exist"],
     [5, "This participation does not exist"],
     [6, "This user does not exist"],
+    [7, "This participation already exists"],
 ])
 
 class CustomError extends Error {
