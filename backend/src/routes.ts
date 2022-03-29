@@ -5,6 +5,7 @@ import { useDiscordRoutes } from './routes/discord';
 import { useMatchRoutes } from './routes/match';
 import { useParticipationRoutes } from './routes/participation';
 import { useServerRoutes } from './routes/server';
+import { useStatisticsRoutes } from './routes/statistics';
 import { useSubscriptionRoutes } from './routes/subscription';
 import { useTournamentRoutes } from './routes/tournament';
 import { useUserRoutes } from './routes/user';
@@ -25,5 +26,5 @@ useBetRoutes(routes);
 useMatchRoutes(routes);
 useParticipationRoutes(routes);
 useVoteRoutes(routes)
-
+useStatisticsRoutes(routes);
 export default routes;
