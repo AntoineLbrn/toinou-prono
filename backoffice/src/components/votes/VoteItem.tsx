@@ -1,6 +1,6 @@
 import { MenuItem } from "@chakra-ui/react"
 import { FC } from "react";
-import createVote from "../../api/votes/createVote";
+import sendVote from "../../api/votes/sendVote";
 import { useMutationWithFeedback } from "../../hooks/useMutationWithFeeback";
 import { Bet } from "../../models/Bet";
 
@@ -10,7 +10,7 @@ interface VoteItemProps {
 }
 
 const VoteItem: FC<VoteItemProps> = ({bet, refetch}) => {
-    const voteMutation = useMutationWithFeedback(() => createVote({betId: bet.id}),
+    const voteMutation = useMutationWithFeedback(() => sendVote({betId: bet.id}),
     {
         onSuccess: refetch
     },

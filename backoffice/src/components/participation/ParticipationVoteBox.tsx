@@ -3,8 +3,7 @@ import { FC } from "react";
 import { Match } from "../../models/Match";
 import { UserTournamentParticipation } from "../../models/UserTournamentParticipation";
 import BetResult from "../bets/BetResult";
-import VoteForm from "../votes/VoteForm";
-import VoteResult from "../votes/VoteResult";
+import VoteDisplayer from "../votes/VoteDisplayer";
 
 interface ParticipationVoteBoxProps {
     participation: UserTournamentParticipation | undefined
@@ -24,10 +23,8 @@ const ParticipationVoteBox: FC<ParticipationVoteBoxProps> = ({participation, mat
         {!participation ?
         <BetResult match={match} />
             : noAvailableBets ? 
-            "Aucun pari dispo ❓" 
-                : vote || votable ?
-                <VoteResult votable={votable} refetch={refetch} availableBets={match.bets} vote={vote} />
-                   : "Paris fermés 🚫" 
+            "Aucun pari dispo ❓" :
+                <VoteDisplayer votable={votable} refetch={refetch} availableBets={match.bets} vote={vote} />
         }
 
     </Box>

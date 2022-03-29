@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { check } from "express-validator"
 import voteController from "../app/controllers/voteController"
-import checkJWT, { checkApiKey } from "../app/middlewares/security"
+import checkJWT, { checkApiKey, checkJWTOrApiKey } from "../app/middlewares/security"
 
 export const useVoteRoutes = (routes: Router) => {
     
@@ -11,8 +11,7 @@ export const useVoteRoutes = (routes: Router) => {
     ], voteController.create)
   
     routes.put("/vote", [
-        checkApiKey, 
+        checkJWTOrApiKey, 
         check("betId", "betId is required").notEmpty(),
-        check("discordUserId", "discordUserId is required").notEmpty(),
     ], voteController.edit)
 }
