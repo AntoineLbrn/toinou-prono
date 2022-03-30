@@ -15,7 +15,7 @@ class userTournamentParticipationService {
 
         const user = await User.findOne({where: {discordUserId}});
             if (!user)
-                throw new Error('No user found for the given ID');
+                throw new CustomError(6);
 
         const participation = await UserTournamentParticipation.findOne({where: {participant: user, tournament}});
         if (participation)
@@ -32,7 +32,7 @@ class userTournamentParticipationService {
     async get (getUserByDiscordUserId: {discordUserId: string}): Promise<UserTournamentParticipation[]> {
         const user = await User.findOne({where: {discordUserId: getUserByDiscordUserId.discordUserId}});
         if (!user)
-            throw new Error('No user found for the given ID');
+            throw new CustomError(6);
 
         return UserTournamentParticipation.find({where: {participant: user}, relations: ['tournament', 'tournament.matches', 'tournament.matches.bets', 'votes', 'votes.bet', 'votes.bet.match']});
     }
@@ -40,7 +40,7 @@ class userTournamentParticipationService {
     async getByDiscordUserIdAndTournamentId(args: {discordUserId: string, tournamentId: string}): Promise<UserTournamentParticipation> {
         const user = await User.findOne({where: {discordUserId: args.discordUserId}});
         if (!user)
-            throw new Error('No user found for the given ID');
+            throw new CustomError(6);
 
         const tournament = await Tournament.findOne(args.tournamentId);
         if (!tournament)
@@ -53,7 +53,7 @@ class userTournamentParticipationService {
     async getRank(args: {discordUserId: string, tournamentId: string}): Promise<Number> {
         const user = await User.findOne({where: {discordUserId: args.discordUserId}});
         if (!user)
-            throw new Error('No user found for the given ID'); 
+            throw new CustomError(6); 
 
         return await tournamentService.getRank({user, tournamentId: args.tournamentId});
     }
@@ -61,7 +61,7 @@ class userTournamentParticipationService {
     async getRankByTournamentLabelAndDiscordUserId(args: {discordUserId: string, tournamentLabel: string}): Promise<Ranking> {
         const user = await User.findOne({where: {discordUserId: args.discordUserId}});
         if (!user)
-            throw new Error('No user found for the given ID');
+            throw new CustomError(6);
         const tournament = await Tournament.findOne({where: {label: args.tournamentLabel}});
         if (!tournament)
             throw new CustomError(3); 

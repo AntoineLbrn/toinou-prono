@@ -8,6 +8,7 @@ import Roles from "../app/utils/roles";
 
 export const useSubscriptionRoutes = (routes: Router) => {
     routes.get("/subscription/tournamentLabel=:label&serverId=:serverId", checkJWTOrApiKey, tournamentSubscriptionController.getByLabelAndServerId);
+    routes.get("/subscription/tournamentId=:tournamentId&serverId=:serverId", checkJWTOrApiKey, tournamentSubscriptionController.getByTournamentIdAndServerId);
     routes.get("/subscription/:id", checkApiKey, tournamentSubscriptionController.get);
     routes.get("/server-tournament-subscription/:id", [checkJWT, checkRoles([Roles.ADMIN])], tournamentSubscriptionController.get);
     routes.post("/tournament-subscription/create", [checkJWT, checkEditChannelAndRolesPermissions], tournamentSubscriptionController.create);

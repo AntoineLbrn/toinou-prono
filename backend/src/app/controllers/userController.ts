@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import { User } from "../entities/User";
+import userService from "../services/userService";
 
 class UserController {
   async store(req: Request, res: Response) {
@@ -54,6 +55,16 @@ class UserController {
     await user.remove();
 
     return res.status(200);
+  }
+
+  async create(req: Request, res: Response) {
+    const user = req.body as Omit<User, 'id'>;
+    userService.create(user).then((userCreated: User) => {
+      return res.status(201).json(userCreated);
+    }).catch((error) => {
+      res.statusMessage =  error.code + ' ' + error.toString();
+      return res.status(400).send();
+    });
   }
 }
 

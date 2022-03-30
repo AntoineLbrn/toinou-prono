@@ -63,7 +63,17 @@ class tournamentSubscriptionController {
           res.statusMessage = error.code + ' ' + error.toString();
           return res.status(400).send();
         });
-      }
+    }
+    
+    async getByTournamentIdAndServerId(req: Request, res: Response) {
+        const { tournamentId, serverId } = req.params;
+        tournamentSubscriptionService.getByTournamentIdAndServerId(tournamentId, serverId).then((subscription: ServerTournamentSubscribtion) => {
+          return res.status(201).json(subscription);
+        }).catch((error) => {
+          res.statusMessage = error.code + ' ' + error.toString();
+          return res.status(400).send();
+        });
+    }
 }
 
 export default new tournamentSubscriptionController();

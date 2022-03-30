@@ -1,4 +1,5 @@
 import { User } from "../entities/User";
+import CustomError from "../errors/CustomError";
 import DiscordUser from "../models/DiscordUser";
 
 class UserService {
@@ -20,6 +21,15 @@ class UserService {
         return await User.findOne({
             where: { discordUserId },
           });
+    }
+
+    async create(user: Omit<User,'id'>): Promise<User> {
+        if (!! await User.findOne({where: {discordUserId: user.discordUserId}})) {
+            throw new CustomError(8);
+        } else {
+            const newUser = await User.create(user);
+            return newUser.save();
+        }
     }
 }
 

@@ -43,7 +43,7 @@ class tournamentSubscriptionService {
             throw new CustomError(3);
         const server = await Server.findOne({discordServerId: serverId});
         if (!server)
-            throw new CustomError(3);
+            throw new CustomError(4);
         return ServerTournamentSubscribtion.findOne({tournament, server}, {relations: ['tournament']});
     }
 
@@ -57,6 +57,16 @@ class tournamentSubscriptionService {
         const subscription = await ServerTournamentSubscribtion.create({server, tournament});
         subscription.save();
         return subscription;
+    }
+
+    async getByTournamentIdAndServerId(tournamentId: string, serverId: string): Promise<ServerTournamentSubscribtion> {
+        const tournament = await Tournament.findOne({id: tournamentId});
+        if (!tournament)
+            throw new CustomError(3);
+        const server = await Server.findOne({discordServerId: serverId});
+        if (!server)
+            throw new CustomError(4);
+        return ServerTournamentSubscribtion.findOne({tournament, server}, {relations: ['tournament']});
     }
 }
 
