@@ -26,7 +26,7 @@ export class Bet extends BaseEntity {
   @Column({default: BetStatus.PENDING})
   status!: BetStatus;
 
-  @ManyToOne(() => Match, (match) => match.bets)
+  @ManyToOne(() => Match, (match) => match.bets, {onDelete: 'CASCADE'})
   match: Match;
 
   @OneToMany(() => Vote, (vote) => vote.bet, {eager: true})

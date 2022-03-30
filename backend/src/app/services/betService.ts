@@ -1,3 +1,4 @@
+import { DeleteResult } from "typeorm";
 import { Bet, BetStatus } from "../entities/Bet";
 import { Match } from "../entities/Match";
 
@@ -35,6 +36,10 @@ class betService {
         betUpdated.status = bet.status !== undefined ? bet.status : betUpdated.status;
    
         return betUpdated.save();
+    }
+
+    async delete(id: string): Promise<DeleteResult> {
+        return Bet.delete(id);
     }
 }
 

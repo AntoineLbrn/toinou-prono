@@ -1,4 +1,4 @@
-import { StackDivider, Box, Spacer, Container, HStack, Heading, Flex, VStack, Button, useDisclosure, Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Icon, Skeleton, Center } from '@chakra-ui/react';
+import { StackDivider, Box, Spacer, Container, HStack, Heading, Flex, VStack, Button, Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Icon, Skeleton, Center } from '@chakra-ui/react';
 import React, { FC, useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import getAllTournaments from '../../api/tournaments/getAllTournaments';

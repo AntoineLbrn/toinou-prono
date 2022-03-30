@@ -39,6 +39,18 @@ class MatchController {
                 return res.status(400).send();
             });
     }
+
+    async delete(req: Request, res: Response) {
+        const { id } = req.params;
+        matchService.delete(id)
+            .then((match) => {
+                return res.json(match);
+            })
+            .catch ((error) => {
+                res.statusMessage =  error.code + ' ' + error.toString();
+                return res.status(400).send();
+            })
+    }
   
 }
 

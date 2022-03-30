@@ -1,13 +1,15 @@
 import { ChevronDownIcon, InfoIcon } from '@chakra-ui/icons';
-import { Accordion, Center, Text, Heading, Menu, MenuButton, MenuItem, MenuList, Skeleton, Table, TableCaption, Tbody, Td, Tfoot, Th, Thead, Tr, VStack } from '@chakra-ui/react';
+import { Accordion, Center, Text, Heading, Menu, MenuButton, MenuItem, MenuList, Skeleton, Table, TableCaption, Tbody, Td, Tfoot, Th, Thead, Tr, VStack, useDisclosure } from '@chakra-ui/react';
 import React, { FC, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
+import deleteBet from '../../../api/bets/deleteBet';
 import updateBet from '../../../api/bets/updateBet';
 import validateBetAndInvalidateOthers from '../../../api/bets/validateBetAndInvalidateOthers';
 import { useMutationWithFeedback } from '../../../hooks/useMutationWithFeeback';
 import { Bet, BetStatus } from '../../../models/Bet';
 import { Match } from '../../../models/Match';
 import betStatusAsColor from '../../../utils/betStatusAsColor'
+import ConfirmDeletionModal from '../../generic/ConfirmDeletionModal';
 
 interface AdminAvailableBetListProps {
     bet: Bet
@@ -29,6 +31,14 @@ const AdminBetItem: FC<AdminAvailableBetListProps> = ({ bet, refetch }: AdminAva
         },
         'Modification des paris effectuée'
     );
+    const deleteBetMutation = useMutationWithFeedback(() => deleteBet(bet.id),
+        {
+            onSuccess: refetch
+        },
+        'Pari supprimé'
+    );
+
+    const {isOpen, onClose, onOpen} = useDisclosure();
 
     return <Center w="32%">
         <Menu>
@@ -40,8 +50,9 @@ const AdminBetItem: FC<AdminAvailableBetListProps> = ({ bet, refetch }: AdminAva
                 <MenuItem onClick={() => updateStatusMutation.mutate(BetStatus.WON)}>Valider le pari</MenuItem>
                 <MenuItem onClick={() => updateStatusMutation.mutate(BetStatus.PENDING)}>Mettre le pari "en cours"</MenuItem>
                 <MenuItem onClick={() => updateStatusMutation.mutate(BetStatus.LOST)}>Mettre le pari perdant</MenuItem>
-                <MenuItem>Supprimer le pari</MenuItem>
+                <MenuItem onClick={onOpen}>Supprimer le pari</MenuItem>
             </MenuList>
+            <ConfirmDeletionModal isOpen={isOpen} onClose={onClose} onConfirm={() => deleteBetMutation.mutate()} label={bet.label} />
         </Menu>
     </Center>
 }

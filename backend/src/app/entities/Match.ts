@@ -30,7 +30,7 @@ export class Match extends BaseEntity {
   @ManyToOne(() => Tournament, (tournament) => tournament.matches)
   tournament: Tournament;
 
-  @OneToMany(() => Bet, (bet) => bet.match)
+  @OneToMany(() => Bet, (bet) => bet.match, {cascade: true})
   bets: Bet[];
 
   @OneToMany(() => Vote, (vote) => vote.match)

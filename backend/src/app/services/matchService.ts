@@ -1,4 +1,4 @@
-import { getRepository, UpdateResult } from "typeorm";
+import { DeleteResult, getRepository, UpdateResult } from "typeorm";
 import { Bet, BetStatus } from "../entities/Bet";
 import { Match } from "../entities/Match";
 import { Server } from "../entities/Server";
@@ -48,6 +48,10 @@ class matchService {
                 await betService.edit({...bet, status: BetStatus.LOST})
 
         return match;
+    }
+
+    async delete(matchId: string): Promise<DeleteResult> {
+        return Match.delete(matchId);
     }
 }
 

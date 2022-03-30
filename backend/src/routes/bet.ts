@@ -24,4 +24,9 @@ export const useBetRoutes = (routes: Router) => {
         checkRoles([Roles.ADMIN]),
         check("matchId", "matchId is required").notEmpty(),
       ], betController.create);
+
+    routes.delete('/bet/:id', [
+    checkJWT, 
+    checkRoles([Roles.ADMIN]),
+    ], betController.delete);
 }

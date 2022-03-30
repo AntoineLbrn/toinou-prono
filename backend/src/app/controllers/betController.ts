@@ -73,6 +73,18 @@ class BetController {
             return res.status(400).send();
         });
     }
+
+    async delete(req: Request, res: Response) {
+        const { id } = req.params;
+        betService.delete(id)
+            .then((bet) => {
+                return res.json(bet);
+            })
+            .catch ((error) => {
+                res.statusMessage =  error.code + ' ' + error.toString();
+                return res.status(400).send();
+            })
+    }
 }
 
 export default new BetController();

@@ -18,4 +18,9 @@ export const useMatchRoutes = (routes: Router) => {
         checkRoles([Roles.ADMIN]),
         check("tournamentId", "tournamentId is required").notEmpty(),
     ], matchController.create);
+
+    routes.delete("/match/:id", [
+        checkJWT,
+        checkRoles([Roles.ADMIN]),
+    ], matchController.delete)
 }
