@@ -8,6 +8,7 @@ import HeaderUserSection from './HeaderUserSection';
 import useIsMobile from '../../hooks/useIsMobile';
 import HeaderMobile from './HeaderMobile';
 import headerTabs from '../../utils/headerTabs';
+import { isAuthorized } from '../../utils/isAuthorized';
 
 const Header: FC = () => {
     const isMobile = useIsMobile();
@@ -17,7 +18,7 @@ const Header: FC = () => {
         <Box width="10%" marginY="auto" height="80%"><HeaderLogo/></Box>
         <HStack height="100%">
             {headerTabs.map((headerTab) => (
-                <HeaderSection key={headerTab.url} isActive={history.location.pathname === headerTab.url} onClick={() => history.push(headerTab.url)}>{headerTab.label}</HeaderSection>
+                isAuthorized(headerTab.roles) && <HeaderSection key={headerTab.url} isActive={history.location.pathname === headerTab.url} onClick={() => history.push(headerTab.url)}>{headerTab.label}</HeaderSection>
             ))}
         </HStack>
         <Spacer />

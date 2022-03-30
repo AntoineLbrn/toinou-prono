@@ -16,8 +16,9 @@ export const getToken = () => {
     return localStorage.getItem('token');
 }
 
-export const getRole = () => {
-    return localStorage.getItem('role');
+export const getRole = (): Role => {
+    const role = localStorage.getItem('role')
+    return role ? role as Role : Role.NONE;
 }
 
 export const setToken = (token: string) => {

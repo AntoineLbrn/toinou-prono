@@ -8,6 +8,7 @@ import { Match } from "../../models/Match";
 import Tournament from "../../models/Tournament";
 import { UserTournamentParticipation } from "../../models/UserTournamentParticipation";
 import groupMatchesByDate from "../../utils/groupMatchesByDate";
+import { sortMatchByDateDesc } from "../../utils/sortMatchByDateDesc";
 import UserTournamentParticipationMatchItem from "../matches/MatchItem";
 import TournamentHeader from "./TournamentHeader";
 import TournamentRanking from "./TournamentRanking";
@@ -29,7 +30,7 @@ const TournamentDetail: FC<TournamentDetailProps> = ({tournamentId}) => {
         refetchParticipation();
         refetchTournament();
     }
-    const matchsGroupedByDate = tournament ? groupMatchesByDate(tournament?.matches) : [];
+    const matchsGroupedByDate = tournament ? groupMatchesByDate(tournament?.matches.sort(sortMatchByDateDesc)) : [];
 
 
     return <Box w="80%" mt="20px" py="10px" mx="auto" boxShadow="0 0 .2rem #fff, 0 0 .2rem #fff" bgColor="#1E2F3D">
@@ -37,12 +38,12 @@ const TournamentDetail: FC<TournamentDetailProps> = ({tournamentId}) => {
             {tournament && <TournamentHeader refetch={refetch} participation={participation} tournament={tournament}/>}
             <Flex py="30px" >
                 <Box w="70%" borderRight="0.5px solid white">
-                    {Object.keys(matchsGroupedByDate).map((key) => {
+                    {Object.keys(matchsGroupedByDate).map((key: string, index) => {
                         return <Container key={key} maxW="container.lg">
                             <Flex mb="20px">
                                 <Text w="30%" fontSize="xl">{key}</Text>
                                 <Spacer />
-                                <Text w="30%" align='right'>{participation ? 'Vos paris' : 'Paris'}</Text>
+                                {index === 0 && <Text w="30%" align='right'>{participation ? 'Vos paris' : 'Paris'}</Text>}
                             </Flex>
                             {matchsGroupedByDate[key].map((match: Match) => (
                                 <UserTournamentParticipationMatchItem key={match.id} participation={participation} match={match} refetch={refetch} />

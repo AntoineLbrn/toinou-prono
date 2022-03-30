@@ -1,5 +1,8 @@
-import { Box, Text, Tooltip } from "@chakra-ui/react";
+import { InfoIcon } from "@chakra-ui/icons";
+import { Box, Text } from "@chakra-ui/react";
+import betStatusAsColor from "../../utils/betStatusAsColor";
 import { FC } from "react";
+import { BetStatus } from "../../models/Bet";
 import { Match } from "../../models/Match";
 import { UserTournamentParticipation } from "../../models/UserTournamentParticipation";
 import BetResult from "../bets/BetResult";
@@ -22,9 +25,9 @@ const ParticipationVoteBox: FC<ParticipationVoteBoxProps> = ({participation, mat
     return <Box textAlign="right" w="30%">
         {!participation ?
         <BetResult match={match} />
-            : noAvailableBets ? 
-            "Aucun pari dispo ❓" :
-                <VoteDisplayer votable={votable} refetch={refetch} availableBets={match.bets} vote={vote} />
+            : noAvailableBets
+            ? <Text>Aucun pari dispo <InfoIcon color={betStatusAsColor(BetStatus.PENDING)}/> </Text>
+            :    <VoteDisplayer votable={votable} refetch={refetch} availableBets={match.bets} vote={vote} />
         }
 
     </Box>

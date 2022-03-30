@@ -1,10 +1,9 @@
 import { ChevronDownIcon, InfoIcon } from "@chakra-ui/icons";
 import { Box, Menu, MenuButton, MenuList, Text, Tooltip } from "@chakra-ui/react";
 import { FC } from "react"
-import { Bet } from "../../models/Bet";
+import { Bet, BetStatus } from "../../models/Bet";
 import { Vote } from "../../models/Vote"
 import betStatusAsColor from "../../utils/betStatusAsColor";
-import betStatusAsTooltip from "../../utils/betStatusAsTooltip";
 import VoteItem from "./VoteItem";
 import VoteResult from "./VoteResult";
 
@@ -28,7 +27,7 @@ const VoteDisplayer: FC<VoteResultProps> = ({vote, votable, refetch, availableBe
         </MenuList>
     </Menu> : vote 
         ? <VoteResult vote={vote} />
-        : <Text>Trop tard</Text>
+        : <Text>Aucun vote enregistré <InfoIcon color={betStatusAsColor(BetStatus.LOST)}/></Text>
 }
 
 export default VoteDisplayer
