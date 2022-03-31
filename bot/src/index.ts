@@ -27,17 +27,18 @@ async function start() {
     
     client.on("ready", async () => {
         console.log(">> Bot started");
-       await client.clearApplicationCommands();
+       //await client.clearApplicationCommands();
+       await client.clearApplicationCommands("606422928518545409");
         await client.initApplicationCommands({
-            global: { log: true },
+            //global: { log: true },
             guild: { log: true },
           });
         const rule = new schedule.RecurrenceRule();
-        rule.hour = 15;
-        rule.minute = 30;
-        rule.tz = 'UTC+2';
+        rule.hour = 17;
+        rule.minute = 0;
+        rule.tz = 'Europe/Paris';
         await client.initApplicationPermissions();
-        schedule.scheduleJob('30 16 * * *', () => { 
+        schedule.scheduleJob(rule, () => { 
             SendIncomingMatchesInAllServers.execute(client);
         })
 
