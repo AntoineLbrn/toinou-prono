@@ -27,14 +27,14 @@ async function start() {
     
     client.on("ready", async () => {
         console.log(">> Bot started");
-       await client.clearApplicationCommands();
+       //await client.clearApplicationCommands();
        await client.clearApplicationCommands("606422928518545409");
         await client.initApplicationCommands({
-            global: { log: true },
+            //global: { log: true },
             guild: { log: true },
           });
         await client.initApplicationPermissions();
-        schedule.scheduleJob('0 10 * * *', () => { 
+        schedule.scheduleJob('0 12 * * *', () => { 
             SendIncomingMatchesInAllServers.execute(client);
         })
 
