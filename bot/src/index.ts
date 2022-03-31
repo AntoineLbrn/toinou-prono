@@ -33,10 +33,14 @@ async function start() {
             //global: { log: true },
             guild: { log: true },
           });
+        const rule = new schedule.RecurrenceRule();
+        rule.hour = 15;
+        rule.minute = 30;
+        rule.tz = 'UTC+2';
         await client.initApplicationPermissions();
         SendIncomingMatchesInAllServers.execute(client);
-        schedule.scheduleJob('0 10 * * *', () => { 
-            //SendIncomingMatchesInAllServers.execute(client);
+        schedule.scheduleJob('30 15 * * *', () => { 
+            SendIncomingMatchesInAllServers.execute(client);
         })
 
     });
