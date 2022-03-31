@@ -6,22 +6,17 @@ import getTournamentMatchesUntil from "../../utils/getTournamentMatchesUntil";
 
 class SendTournamentIncomingMatches {
     public async execute (args: {tournament: Tournament, channel: any, days: number, roleId?: string}): Promise<void> {
-        try {
-            const matches = getTournamentMatchesUntil(args.tournament, args.days);
-            if (!matches.length) {
-                return args.channel.send("Pas de match pour aujourd'hui")
-            } else {
-                if (args.roleId) {
-                    args.channel.send(`<@&${args.roleId}>`)
-                }
-                for (const match of matches) {
-                    await SendIncomingMatch.execute({match, channel: args.channel});
-                }
+        const matches = getTournamentMatchesUntil(args.tournament, args.days);
+        if (!matches.length) {
+            return args.channel.send("Pas de match pour aujourd'hui").catch((error: any) => console.log(error));
+        } else {
+            if (args.roleId) {
+                args.channel.send(`<@&${args.roleId}>`).catch((error: any) => console.log(error));
             }
-        } catch (error) {
-            console.log(error)
+            for (const match of matches) {
+                await SendIncomingMatch.execute({match, channel: args.channel});
+            }
         }
-        
     }
 }
 

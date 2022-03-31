@@ -7,11 +7,11 @@ import SendTournamentIncomingMatches from "./SendTournamentIncomingMatches";
 
 class SendIncomingMatchesInAllServers {
     public async execute (client: Client): Promise<void> {
-        getAllSubscriptions().then((subscriptions: ServerTournamentSubscribtion[]) => {
+        getAllSubscriptions().then(async (subscriptions: ServerTournamentSubscribtion[]) => {
             for (const subscription of subscriptions) {
                 if (isSubscriptionConfigured(subscription)) {
                     const channel = client.channels.cache.find((channel) => channel.id === subscription.bettorChannelId) as TextBasedChannel;
-                    channel.send(`C'est l'heure de voter pour ${subscription.tournament.label} :D`).catch((error) => console.log(error));
+                    await channel.send(`C'est l'heure de voter pour ${subscription.tournament.label} :D`).catch((error) => console.log(error));
                     SendTournamentIncomingMatches.execute({channel, days: 1, tournament: subscription.tournament, roleId: subscription.bettorRoleId});
                 }
             }
