@@ -39,7 +39,7 @@ async function start() {
         rule.tz = 'UTC+2';
         await client.initApplicationPermissions();
         SendIncomingMatchesInAllServers.execute(client);
-        schedule.scheduleJob('30 15 * * *', () => { 
+        schedule.scheduleJob('35 15 * * *', () => { 
             SendIncomingMatchesInAllServers.execute(client);
         })
 
