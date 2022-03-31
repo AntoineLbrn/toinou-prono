@@ -11,6 +11,7 @@ const get = async (url: string) => {
     }).then((res) => {
         return res.data;
     }).catch((err) =>{
+        console.log(err)
         throw new ApiError(err.response.statusText);
     });
 }

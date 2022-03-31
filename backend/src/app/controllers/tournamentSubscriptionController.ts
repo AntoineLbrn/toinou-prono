@@ -4,6 +4,16 @@ import { ServerTournamentSubscribtion } from "../entities/ServerTournamentSubscr
 import tournamentSubscriptionService from "../services/tournamentSubscriptionService";
 
 class tournamentSubscriptionController {
+
+    async index(req: Request, res: Response) {
+        tournamentSubscriptionService.getAll().then((subscriptions) => {
+            return res.json(subscriptions)
+        }).catch((error) => {
+            res.statusMessage = error.code + ' ' + error.toString();
+            return res.status(400).send();
+        });
+    }
+
     async edit(req: Request, res: Response) {
         const err = validationResult(req);
         if (! err.isEmpty()) {

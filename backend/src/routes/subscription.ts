@@ -27,5 +27,9 @@ export const useSubscriptionRoutes = (routes: Router) => {
     routes.get("/tournaments/:discordServerId", [
         checkApiKey,
     ], tournamentSubscriptionController.getByDiscordServerId)
+
+    routes.get("/subscriptions", [
+        checkApiKey,
+    ], tournamentSubscriptionController.index)
             
 }

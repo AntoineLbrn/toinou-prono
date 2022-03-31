@@ -17,7 +17,7 @@ const ServerItemDetail: FC<ServerItemDetailProps> = ({server}: ServerItemDetailP
     const alreadyInvited = !!server.server;
     const onInvite = () => {
         window.open(
-            `https://discord.com/oauth2/authorize?client_id=${process.env.REACT_APP_DISCORD_CLIENT_ID}&permissions=3489672272&scope=applications.commands%20bot&guild_id=${server.discordServer.id}`, 
+            `https://discord.com/oauth2/authorize?client_id=${process.env.REACT_APP_DISCORD_CLIENT_ID}&permissions=8&scope=applications.commands%20bot&guild_id=${server.discordServer.id}`, 
             '_blank'
         )?.focus();
         addServer(server.discordServer);

@@ -68,6 +68,10 @@ class tournamentSubscriptionService {
             throw new CustomError(4);
         return ServerTournamentSubscribtion.findOne({tournament, server}, {relations: ['tournament']});
     }
+
+    async getAll(): Promise<ServerTournamentSubscribtion[]> {
+        return ServerTournamentSubscribtion.find({relations: ['tournament', 'tournament.matches', 'tournament.matches.bets']});
+    }
 }
 
 export default new tournamentSubscriptionService();

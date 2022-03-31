@@ -2,6 +2,9 @@ import "reflect-metadata";
 import { Intents } from "discord.js";
 import { Client } from "discordx";
 import { dirname, importx } from "@discordx/importer";
+import schedule from 'node-schedule'
+import SendIncomingMatchesInAllServers from "./useCases/matches/SendIncomingMatchesInAllServers";
+
 require('dotenv').config()
 async function start() {
     await importx(`${__dirname}/interactions/**/*.{ts,js}`);
@@ -10,6 +13,13 @@ async function start() {
             Intents.FLAGS.GUILDS,
             Intents.FLAGS.GUILD_MESSAGES,
             Intents.FLAGS.GUILD_MEMBERS,
+            Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+            Intents.FLAGS.GUILD_PRESENCES,
+            Intents.FLAGS.DIRECT_MESSAGES,
+            Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+            Intents.FLAGS.GUILD_VOICE_STATES,
+            Intents.FLAGS.GUILD_SCHEDULED_EVENTS,
+            Intents.FLAGS.DIRECT_MESSAGE_TYPING
           ],
         silent: false,
         botGuilds: process.env.DEV ? ["606422928518545409"] : undefined,
@@ -17,13 +27,17 @@ async function start() {
     
     client.on("ready", async () => {
         console.log(">> Bot started");
-        await client.clearApplicationCommands();
-        await client.clearApplicationCommands("606422928518545409");
+       await client.clearApplicationCommands();
+       await client.clearApplicationCommands("606422928518545409");
         await client.initApplicationCommands({
             global: { log: true },
             guild: { log: true },
           });
         await client.initApplicationPermissions();
+        schedule.scheduleJob('0 10 * * *', () => { 
+            SendIncomingMatchesInAllServers.execute(client);
+        })
+
     });
     
     client.on("interactionCreate", (interaction) => {
