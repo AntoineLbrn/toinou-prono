@@ -45,9 +45,12 @@ async function start() {
     });
     
     client.on("interactionCreate", (interaction) => {
-        client.executeInteraction(interaction);
+        try {
+            client.executeInteraction(interaction);
+        } catch (e) {
+            console.error(e);
+        }
     });
-
 
     client.on("messageCreate", (message) => {
         client.executeCommand(message);

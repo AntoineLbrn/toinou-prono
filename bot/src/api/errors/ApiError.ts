@@ -6,6 +6,8 @@ const statusCodeMappedToString = (code: string): string => {
             return "Tu ne participes pas à ce tournoi..."
         case '3':
             return "Ce tournoi n'existe pas..."
+        case '4':
+            return "Le serveur n'est pas inscrit sur ToinouProno"
         case '5':
             return "Tu n'es pas inscrit·e à ce tournoi..."
         case '6':
