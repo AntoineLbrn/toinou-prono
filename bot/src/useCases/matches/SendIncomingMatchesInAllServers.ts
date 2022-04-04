@@ -11,8 +11,9 @@ class SendIncomingMatchesInAllServers {
             for (const subscription of subscriptions) {
                 if (isSubscriptionConfigured(subscription)) {
                     const channel = client.channels.cache.find((channel) => channel.id === subscription.bettorChannelId) as TextBasedChannel;
-                    await channel.send(`C'est l'heure de voter pour ${subscription.tournament.label} :D`).catch((error) => console.log(error));
-                    SendTournamentIncomingMatches.execute({channel, days: 1, tournament: subscription.tournament, roleId: subscription.bettorRoleId});
+                    if (await SendTournamentIncomingMatches.execute({channel, days: 1, tournament: subscription.tournament, roleId: subscription.bettorRoleId, silentIfNoMatch: true})) {
+                        await channel.send(`C'est l'heure de voter pour ${subscription.tournament.label} :D`).catch((error) => console.log(error));
+                    };
                 }
             }
         }).catch((error) => {
