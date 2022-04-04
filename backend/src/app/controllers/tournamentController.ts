@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { Tournament } from "../entities/Tournament";
+import Leaderboard from "../models/Leaderboard";
 import tournamentService from "../services/tournamentService";
 
 class TournamentController {
@@ -42,6 +43,8 @@ class TournamentController {
       });
     }
 
+
+
     async edit(req: Request, res: Response) {
       const err = validationResult(req);
       if (! err.isEmpty()) {
@@ -58,9 +61,17 @@ class TournamentController {
           res.statusMessage = error.toString();
           return res.status(400).send();
     });
-
-    
   }
+
+    async getLeaderboardByTournamentLabel(req: Request, res: Response) {
+      const { label } = req.params;
+      tournamentService.getLeaderboardByTournamentLabel(label).then((leaderboard: Leaderboard) => {
+        return res.status(201).json(leaderboard);
+      }).catch((error) => {
+        res.statusMessage =  error.code + ' ' + error.toString();
+        return res.status(400).send();
+      });
+    }
 }
 
 export default new TournamentController();

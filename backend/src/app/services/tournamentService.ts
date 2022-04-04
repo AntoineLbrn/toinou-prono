@@ -4,6 +4,7 @@ import { Tournament } from "../entities/Tournament";
 import { User } from "../entities/User";
 import { UserTournamentParticipation } from "../entities/UserTournamentParticipation";
 import CustomError from "../errors/CustomError";
+import Leaderboard from "../models/Leaderboard";
 import serverService from "./serverService";
 
 class tournamentService {
@@ -41,6 +42,17 @@ class tournamentService {
         if (!tournament)
             throw new CustomError(3);
         return tournament;
+    }
+
+    async getLeaderboardByTournamentLabel(label: string): Promise<Leaderboard> {
+        const tournament = await Tournament.findOne({where: {label}, relations: ['participations', 'participations.participant']});
+        if (!tournament)
+        throw new CustomError(3);
+        return {tournament, leaderboardRows: this.computeRanking({participations: tournament.participations}).slice(0, 10).map((participation, index) => {
+            return {
+                rank: index +1, user: participation.participant.tagUsedToBe, points: participation.points 
+            }
+        })};
     }
 
     computeRanking(args: { participations: UserTournamentParticipation[] }): UserTournamentParticipation[] {
