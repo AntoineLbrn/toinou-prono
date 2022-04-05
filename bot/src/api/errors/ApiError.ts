@@ -23,8 +23,15 @@ const statusCodeMappedToString = (code: string): string => {
 
 
 class ApiError extends Error {
-    constructor(statusText: string) {
-        super(statusCodeMappedToString(statusText.split(' ')[0]));
+    code: string | undefined
+    constructor(statusText: string, code?: string) {
+        if (code) {
+            super(statusText);
+            this.code = code;
+        } else {
+            super(statusCodeMappedToString(statusText.split(' ')[0]));
+            this.code = statusText.split(' ')[0];    
+        }
     }
 }
 
