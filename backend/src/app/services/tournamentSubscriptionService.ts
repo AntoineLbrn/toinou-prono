@@ -3,6 +3,7 @@ import { ServerTournamentSubscribtion } from "../entities/ServerTournamentSubscr
 import { Tournament } from "../entities/Tournament";
 import CustomError from "../errors/CustomError";
 import serverService from "./serverService";
+import tournamentService from "./tournamentService";
 
 class tournamentSubscriptionService {
     
@@ -38,7 +39,7 @@ class tournamentSubscriptionService {
     }
 
     async getByLabelAndServerId(label: string, serverId: string): Promise<ServerTournamentSubscribtion> {
-        const tournament = await Tournament.findOne({label: label});
+        const tournament = await tournamentService.getByLabel(label);
         if (!tournament)
             throw new CustomError(3);
         const server = await Server.findOne({discordServerId: serverId});

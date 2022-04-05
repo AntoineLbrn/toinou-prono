@@ -1,3 +1,4 @@
+import { Raw } from "typeorm";
 import { Server } from "../entities/Server";
 import { ServerTournamentSubscribtion } from "../entities/ServerTournamentSubscribtion";
 import { Tournament } from "../entities/Tournament";
@@ -37,15 +38,15 @@ class tournamentService {
         return ranking.findIndex((participation) => participation.participant.id === args.user.id) + 1;
     }
 
-    async getByLabel(label: string): Promise<Tournament> {
-        const tournament = await Tournament.findOne({where: {label}, relations: ['matches', 'matches.bets']});
+    async getByLabel(label: string, relations: string[] = []): Promise<Tournament> {
+        const tournament = await Tournament.findOne({where: {label: Raw(alias => `LOWER(${alias}) = LOWER('${label}')`)}, relations: ['matches', 'matches.bets', ...relations]});
         if (!tournament)
             throw new CustomError(3);
         return tournament;
     }
 
     async getLeaderboardByTournamentLabel(label: string): Promise<Leaderboard> {
-        const tournament = await Tournament.findOne({where: {label}, relations: ['participations', 'participations.participant']});
+        const tournament = await this.getByLabel(label, ['participations', 'participations.participant']);
         if (!tournament)
         throw new CustomError(3);
         return {tournament, leaderboardRows: this.computeRanking({participations: tournament.participations}).slice(0, 10).map((participation, index) => {

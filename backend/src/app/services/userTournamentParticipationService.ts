@@ -62,7 +62,7 @@ class userTournamentParticipationService {
         const user = await User.findOne({where: {discordUserId: args.discordUserId}});
         if (!user)
             throw new CustomError(6);
-        const tournament = await Tournament.findOne({where: {label: args.tournamentLabel}});
+        const tournament = await tournamentService.getByLabel(args.tournamentLabel);
         if (!tournament)
             throw new CustomError(3); 
         const participation = await UserTournamentParticipation.findOne({where: {tournament, participant: user}})
