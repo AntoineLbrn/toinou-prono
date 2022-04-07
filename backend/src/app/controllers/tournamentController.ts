@@ -66,7 +66,7 @@ class TournamentController {
     async getLeaderboardByTournamentLabel(req: Request, res: Response) {
       const { label } = req.params;
       tournamentService.getLeaderboardByTournamentLabel(label).then((leaderboard: Leaderboard) => {
-        return res.status(201).json(leaderboard);
+        return res.status(200).json(leaderboard);
       }).catch((error) => {
         res.statusMessage =  error.code + ' ' + error.toString();
         return res.status(400).send();

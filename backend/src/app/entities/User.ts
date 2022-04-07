@@ -15,6 +15,6 @@ export class User extends BaseEntity {
   @Column()
   tagUsedToBe!: string;
 
-  @OneToMany(() => UserTournamentParticipation, (participation) => participation.tournament)
+  @OneToMany(() => UserTournamentParticipation, (participation) => participation.participant)
   participations?: UserTournamentParticipation[];
 }

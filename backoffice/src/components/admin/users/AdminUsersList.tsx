@@ -2,6 +2,7 @@ import { Box, Container, Table, TableCaption, Tbody, Td, Tfoot, Th, Thead, Tr } 
 import React, { FC, useEffect, useState } from 'react';
 import getAllUsers from '../../../api/users/getAllUsers';
 import User from '../../../models/User';
+import AdminUserItem from './AdminUserItem';
 
 const AdminUsersList: FC = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -23,11 +24,7 @@ const AdminUsersList: FC = () => {
             </Thead>
             <Tbody>
             {users?.map((user) => (
-                <Tr key={user.id}>
-                    <Td>{user.discordUserId}</Td>
-                    <Td>{user.isSuperAdmin ? '✅' : '❌'}</Td>
-                    <Td>{user.tagUsedToBe}</Td>
-                </Tr>
+                <AdminUserItem key={user.id} user={user} />
             ))}
             </Tbody>
         </Table>

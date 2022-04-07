@@ -31,6 +31,10 @@ class UserService {
             return newUser.save();
         }
     }
+
+    async getById(args: {id: string, relations: string[]}): Promise<User> {
+        return User.findOne(args.id, {relations: args.relations});
+    }
 }
 
 export default new UserService();

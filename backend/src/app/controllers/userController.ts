@@ -57,6 +57,17 @@ class UserController {
     return res.status(200);
   }
 
+  async get(req: Request, res: Response) {
+    const relations = req.query.relations as string;
+    userService.getById({id: req.params.id, relations: relations ? relations.split(',') : []}).then((user) => {
+      console.log(user)
+      return res.status(200).json(user);
+    }).catch((error) => {
+      res.statusMessage =  error.code + ' ' + error.toString();
+      return res.status(400).send();
+    });
+  }
+
   async create(req: Request, res: Response) {
     const user = req.body as Omit<User, 'id'>;
     userService.create(user).then((userCreated: User) => {

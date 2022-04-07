@@ -14,6 +14,7 @@ import AdminTournamentCreate from './AdminTournamentCreate';
 import AdminTournamentEdit from './AdminTournamentEdit';
 import MyBets from './MyBets';
 import { getToken } from '../utils/session';
+import AdminUserDetail from './AdminUserDetail';
 
 const ConnectedRouter: FC = () => (
     <Switch>
@@ -43,6 +44,7 @@ const ConnectedRouter: FC = () => (
         <Route path="/admin/tournaments/create" exact>
             <AdminTournamentCreate />
         </Route>
+        <Route path="/admin/user/:id" component={AdminUserDetail} />
         <Route path="/admin/tournaments/edit/:id" component={AdminTournamentEdit} />
         <Route path="/admin/servers/subscription/:id" component={AdminSubscription}>
         </Route>
