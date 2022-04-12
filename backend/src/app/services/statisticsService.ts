@@ -2,10 +2,11 @@ import { Match } from "../entities/Match";
 import { Tournament } from "../entities/Tournament";
 import CustomError from "../errors/CustomError";
 import MatchStatistics from "../models/MatchStatistics";
+import tournamentService from "./tournamentService";
 
 class statisticsService {
     async getFromTournamentLabel(label: string, numberOfDays: number): Promise<MatchStatistics[]> {
-        const tournament = await Tournament.findOne({label: label});
+        const tournament = tournamentService.getByLabel(label);
         if (!tournament)
             throw new CustomError(3);
 
