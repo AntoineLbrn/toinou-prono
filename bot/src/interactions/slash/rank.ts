@@ -1,12 +1,13 @@
 import { CommandInteraction, User } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
+import { autocompleteTournaments } from "../../utils/autocompleteTournaments";
 import getRankingByUserDiscordIdAndTournamentLabel from "../../api/subscriptions/getRankingByUserDiscordIdAndTournamentLabel";
 
 @Discord()
 abstract class Rank {
     @Slash("rank", {description: 'Affiche ton rank pour une compétition'})
     public rank(
-        @SlashOption("tournament", { description: "Nom du tournoi à consulter", required: true}) tournamentName: string,
+        @SlashOption("tournament", { description: "Nom du tournoi à consulter", autocomplete: autocompleteTournaments, type: "STRING", required: true}) tournamentName: string,
         @SlashOption("user", { description: "Utilisateur à consulter", type: "USER", required: false}) user: User,
         interaction: CommandInteraction,
     ): void {

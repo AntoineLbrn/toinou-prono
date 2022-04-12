@@ -7,13 +7,14 @@ import isSubscriptionConfigured from "../../utils/isSubscriptionConfigured";
 import CreateRoleAndChannel from "../../useCases/subscriptions/CreateRoleAndChannel";
 import SendSubscriptionForm from "../../useCases/subscriptions/SendSubscriptionForm";
 import sendSubscriptionRoleAndChannel from "../../api/subscriptions/sendSubscriptionRoleAndChannel";
+import { autocompleteTournaments } from "../../utils/autocompleteTournaments";
 
 @Discord()
 abstract class Config {
 
   @Slash("config", {description: 'Configure une compétition pour ton serveur'})
   @Guard(isAdmin)
-  public configurate(@SlashOption("tournament", { description: "Nom du tournoi à configurer", required: true}) tournamentName: string, interaction: CommandInteraction): void {
+  public configurate(@SlashOption("tournament", { description: "Nom du tournoi à configurer", autocomplete: autocompleteTournaments, type: "STRING", required: true}) tournamentName: string, interaction: CommandInteraction): void {
     if (interaction.guildId) {
         getSubscriptionByTournamentLabelAndServerId(tournamentName, interaction.guildId).then((subscription) => {
             if (subscription) {
