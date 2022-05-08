@@ -11,7 +11,7 @@ interface AutocompleteOption {
 
 export const autocompleteTournaments = async (interaction: AutocompleteInteraction): Promise<void>  => {
     const options = interaction.guildId ? await getGuildTournaments(interaction.guildId) : await getUserTournaments(interaction.user.id);
-    return interaction.respond(options);
+    return interaction.respond(options).catch((err) => console.log(err));
 }
 
 const getGuildTournaments = async (guildId: string): Promise<AutocompleteOption[]> => {
