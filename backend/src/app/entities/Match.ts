@@ -23,6 +23,9 @@ export class Match extends BaseEntity {
   @Column({default: false})
   isVoteClosed!: boolean;
 
+  @Column({unique: true, nullable: true})
+  externalMatchId?: string;
+
   /* This attribute is used to know which bet user is reacting to */
   @Column({nullable: true})
   discordMessageId?: string;
@@ -50,10 +53,9 @@ export class Match extends BaseEntity {
   Returns true if the match is not manual vote closing and is not outdated
    */
   isMatchPassed() {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(0,0,0,0);
-    return new Date(this.date) < tomorrow;
+    const currentTime = new Date();
+    currentTime.setHours(currentTime.getHours() + 1); 
+    return currentTime > new Date(this.date); // now > closure date 
   }
 
   /*

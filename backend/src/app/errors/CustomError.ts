@@ -7,6 +7,7 @@ const errors = new Map<number, string>([
     [6, "This user does not exist"],
     [7, "This participation already exists"],
     [7, "This user already exists"],
+    [9, "This tournament has no lolesport league linked"],
 ])
 
 class CustomError extends Error {

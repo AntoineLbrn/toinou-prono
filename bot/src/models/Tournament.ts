@@ -9,6 +9,7 @@ interface Tournament {
   matches: Match[]
   participations: UserTournamentParticipation[]
   serversSubscriptions: ServerTournamentSubscribtion[]
+  externalTournamentId: string
 }
 
 export default Tournament;

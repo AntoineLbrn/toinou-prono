@@ -15,7 +15,7 @@ interface AdminMatchItemProps {
 }
 
 const AdminMatchItem: FC<AdminMatchItemProps> = ({match, refetch}: AdminMatchItemProps) => {
-    const date =  new Date(match.date).toLocaleDateString('fr', {weekday: 'long', day: 'numeric', month: 'long' }); 
+    const date =  new Date(match.date).toLocaleDateString('fr', {weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }); 
     const closeVotesMutation = useMutationWithFeedback(() => closeVotes(match.id),
         {
             onSuccess: refetch

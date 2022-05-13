@@ -8,9 +8,11 @@ const fieldset: FC = (props) => (
 const ChakraFieldset = chakra(fieldset)
 
 const ChakraCustomFieldset = forwardRef<BoxProps, 'fieldset'>((props, ref) => (
-    <ChakraFieldset ref={ref} {...props}>
+    <ChakraFieldset w="100%" ref={ref} {...props}>
         {props.children}
     </ChakraFieldset>
+
+
 ));
 
 export default ChakraCustomFieldset;

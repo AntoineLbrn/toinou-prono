@@ -6,6 +6,7 @@ interface updateTournamentDTO {
     id: string
     label?: string
     description?: string
+    externalTournamentId?: string
 }
 
 const updateTournament = async (serverTournamentSubscription: updateTournamentDTO): Promise<ServerTournamentSubscribtion> => {

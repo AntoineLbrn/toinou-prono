@@ -14,6 +14,9 @@ export class Tournament extends BaseEntity {
   @Column('')
   description: string;
 
+  @Column({ nullable: true })
+  externalTournamentId: string;
+
   @OneToMany(() => UserTournamentParticipation, (participation) => participation.tournament)
   participations: UserTournamentParticipation[];
 

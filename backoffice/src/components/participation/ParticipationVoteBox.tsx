@@ -16,9 +16,10 @@ interface ParticipationVoteBoxProps {
 
 const ParticipationVoteBox: FC<ParticipationVoteBoxProps> = ({participation, match, refetch}) => {
     const today = new Date();
+    today.setHours(today.getHours() + 1);
     const noAvailableBets = !match.bets.length;
     const matchVotesManuallyClosed = match.manualVoteClosing && match.isVoteClosed;
-    const matchVotesAutomaticallyClosed = !match.manualVoteClosing && new Date(match.date).setHours(0,0,0,0) <= today.setHours(0,0,0,0) ;
+    const matchVotesAutomaticallyClosed = !match.manualVoteClosing && new Date(match.date) <= today ;
     const votable = !matchVotesManuallyClosed && !match.manualVoteClosing && !matchVotesAutomaticallyClosed
     const vote = participation?.votes.find((vote) => vote.bet.match.id === match.id);
 

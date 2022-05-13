@@ -12,6 +12,7 @@ import createMatch from '../../../api/matches/createMatch';
 import "react-datepicker/dist/react-datepicker.css";
 import AdminDatePicker from '../form/AdminDatePicker';
 import AdminFieldBox from '../form/AdminFieldBox';
+import setDateToMidnight from '../../../utils/setDateToMidnight';
 
 interface AdminCreateMatchFormProps {
     refetch: () => void
@@ -32,7 +33,7 @@ const AdminCreateMatchForm: FC<AdminCreateMatchFormProps> = ({refetch, tournamen
             description,
             manualVoteClosing,
             tournamentId: tournament.id,
-            date,
+            date: setDateToMidnight(date),
         }),
         {
             onSuccess: refetch

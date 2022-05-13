@@ -1,6 +1,7 @@
 import { DeleteResult } from "typeorm";
 import { Bet, BetStatus } from "../entities/Bet";
 import { Match } from "../entities/Match";
+import LolesportEvent from "../models/LolesportEvent";
 
 class betService {
     
@@ -40,6 +41,17 @@ class betService {
 
     async delete(id: string): Promise<DeleteResult> {
         return Bet.delete(id);
+    }
+
+    async createBetsFromLolesportEvent(event: LolesportEvent, matchId: string): Promise<Bet[]> {
+        const label1 = `${event.match.teams[0].code}`;
+        const label2 = `${event.match.teams[1].code}`;
+        const description1 = `${event.match.teams[0].name}`;
+        const description2 = `${event.match.teams[1].name}`;
+        
+        const bet1 = await this.create(label1, matchId, description1, BetStatus.PENDING);
+        const bet2 = await this.create(label2, matchId, description2, BetStatus.PENDING);
+        return [bet1, bet2];
     }
 }
 

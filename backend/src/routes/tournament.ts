@@ -11,6 +11,8 @@ export const useTournamentRoutes = (routes: Router) => {
     routes.get("/tournament/:id", checkJWTOrApiKey, tournamentController.get);
     routes.get("/tournaments", [checkJWT], tournamentController.index);
     routes.post("/tournament/create", [checkJWT, checkRoles([Roles.ADMIN])], tournamentController.create);
+    routes.post("/tournament/populate/:id", [checkJWT, checkRoles([Roles.ADMIN])], tournamentController.populateMatches);
+    routes.post("/tournament/results/:id", [checkJWT, checkRoles([Roles.ADMIN])], tournamentController.populateMatchesResults);
     
     routes.put("/tournament/edit", [
         checkJWT, 

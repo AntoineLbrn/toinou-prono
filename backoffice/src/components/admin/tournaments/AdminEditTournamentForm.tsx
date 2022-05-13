@@ -9,8 +9,8 @@ import Tournament from '../../../models/Tournament';
 import updateTournament from '../../../api/tournaments/updateTournament';
 import ChakraCustomFieldset from '../form/CustomFieldset';
 import ChakraCustomLegend from '../form/CustomLegend';
-import AdminMatchList from '../matches/AdminMatchList';
 import AdminMatchDisplayer from '../matches/AdminMatchDisplayer';
+import AdminEditExternalTournamentId from './AdminEditExternalTournamentId';
 
 interface AdminSubscriptionFormProps {
     tournament: Tournament
@@ -33,28 +33,36 @@ const AdminEditTournamentForm: FC<AdminSubscriptionFormProps> = ({ tournament, r
 
     
     return <Container maxW="container.xl">
-        <ChakraCustomFieldset border="1px solid pink" padding="10px">
-            <ChakraCustomLegend ml="50px" px='5px'>
-                <Heading size='lg' mb="15px" color="pink.200"> Tournoi </Heading>
-            </ChakraCustomLegend>
-            <Formik initialValues={{
-                label: initialLabel, 
-            }} onSubmit={() => mutation.mutate()}>
-                <Form>
-                    <VStack w="100%" spacing="10px">
-                        <AdminInput label="Label" input={bindLabel} />
-                        <AdminInput label="Description" input={bindDescription} />
-                    </VStack>
-                    <AdminSubmitButton isLoading={mutation.isLoading}/>
-                </Form>
-            </Formik>
-        </ChakraCustomFieldset>
-        <ChakraCustomFieldset border="1px solid pink" padding="10px">
-            <ChakraCustomLegend ml="50px" px='5px'>
-                <Heading size='lg' mb="15px" color="pink.200"> Matchs </Heading>
-            </ChakraCustomLegend>
-            <AdminMatchDisplayer refetch={refetch} tournament={tournament}/>
-        </ChakraCustomFieldset>
+        <VStack spacing="20px">
+            <ChakraCustomFieldset border="1px solid pink" padding="10px">
+                <ChakraCustomLegend ml="50px" px='5px'>
+                    <Heading size='lg' mb="15px" color="pink.200"> Tournoi </Heading>
+                </ChakraCustomLegend>
+                <Formik initialValues={{
+                    label: initialLabel, 
+                }} onSubmit={() => mutation.mutate()}>
+                    <Form>
+                        <VStack w="100%" spacing="10px">
+                            <AdminInput label="Label" input={bindLabel} />
+                            <AdminInput label="Description" input={bindDescription} />
+                        </VStack>
+                        <AdminSubmitButton isLoading={mutation.isLoading}/>
+                    </Form>
+                </Formik>
+            </ChakraCustomFieldset>
+            <ChakraCustomFieldset border="1px solid pink" padding="10px">
+                <ChakraCustomLegend ml="50px" px='5px'>
+                    <Heading size='lg' mb="15px" color="pink.200"> Matchs </Heading>
+                </ChakraCustomLegend>
+                <AdminMatchDisplayer refetch={refetch} tournament={tournament}/>
+            </ChakraCustomFieldset>
+            <ChakraCustomFieldset border="1px solid pink" padding="10px">
+                <ChakraCustomLegend ml="50px" px='5px'>
+                    <Heading size='lg' mb="15px" color="pink.200"> LoLEsport Data Providing </Heading>
+                </ChakraCustomLegend>
+                <AdminEditExternalTournamentId refetch={refetch} tournament={tournament} />
+            </ChakraCustomFieldset>
+        </VStack>
   </Container>;
 }
 
