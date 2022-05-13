@@ -10,7 +10,7 @@ const getLoLEsportTournaments = async (): Promise<getLoLEsportTournamentsReturnT
     const rawResponse = await fetch(`${process.env.REACT_APP_LOLESPORT_API_URL}getLeagues?hl=fr-FR`, {
         method: 'GET',
         headers: {
-            'x-api-key': process.env.REACT_APP_LOLESPORT_API_URL ? process.env.REACT_APP_LOLESPORT_API_URL : '',
+            'x-api-key': process.env.REACT_APP_LOLESPORT_API_KEY ? process.env.REACT_APP_LOLESPORT_API_KEY : '',
         },
     });
     if (!rawResponse.ok) {
