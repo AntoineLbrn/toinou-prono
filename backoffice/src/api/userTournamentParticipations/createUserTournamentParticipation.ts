@@ -1,4 +1,3 @@
-import { Match } from "../../models/Match";
 import { UserTournamentParticipation } from "../../models/UserTournamentParticipation";
 import post from "../post";
 

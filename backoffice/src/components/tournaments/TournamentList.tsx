@@ -14,7 +14,7 @@ import TournamentListTitle from './TournamentListTitle';
 
 const TournamentList: FC = () => {
     const { data, refetch, isLoading: isTournamentLoading } = useQuery('getTournaments', getAllTournaments);
-    const { data: participations, refetch: refetchParticipations, isLoading: isParticipationsLoading } = useQuery('getUserParticipationsByUser', getCurrentUserParticipations);
+    const { data: participations, refetch: refetchParticipations, isLoading: isParticipationsLoading } = useQuery('getUserParticipationsByUser', () => getCurrentUserParticipations(['tournament', 'tournament.matches']))
     const [tournaments, setTournaments] = useState<Tournament[] | undefined>();
     const {bind: bindFilter, value: filter} = useInput('');
 

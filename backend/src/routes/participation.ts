@@ -12,7 +12,8 @@ export const useParticipationRoutes = (routes: Router) => {
     ], userTournamentParticipationController.create)
       
 
-    routes.get("/user-tournament-participation", [
+    // "?" make relations parameter optionnal
+    routes.get("/user-tournament-participation(relations=:relations)?", [
         checkJWT, 
     ], userTournamentParticipationController.getByUser)
 
@@ -20,7 +21,7 @@ export const useParticipationRoutes = (routes: Router) => {
         checkJWT, 
     ], userTournamentParticipationController.getByUserAndTournament);
  
-    
+    //Can be called with ?relations query param
     routes.get("/user-tournament-participation/discord-user-id=:discordUserId", [
         checkApiKey,
     ], userTournamentParticipationController.getByDiscordUserId)

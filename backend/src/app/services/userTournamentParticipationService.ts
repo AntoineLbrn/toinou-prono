@@ -29,12 +29,12 @@ class userTournamentParticipationService {
         return newParticipation.save();
     }
 
-    async get (getUserByDiscordUserId: {discordUserId: string}): Promise<UserTournamentParticipation[]> {
+    async get (getUserByDiscordUserId: {discordUserId: string, relations?: string[] }): Promise<UserTournamentParticipation[]> {
         const user = await User.findOne({where: {discordUserId: getUserByDiscordUserId.discordUserId}});
         if (!user)
             throw new CustomError(6);
 
-        return UserTournamentParticipation.find({where: {participant: user}, relations: ['tournament', 'tournament.matches', 'tournament.matches.bets', 'votes', 'votes.bet', 'votes.bet.match']});
+        return UserTournamentParticipation.find({where: {participant: user}, relations: getUserByDiscordUserId.relations ? getUserByDiscordUserId.relations : ['tournament', 'tournament.matches', 'tournament.matches.bets', 'votes', 'votes.bet', 'votes.bet.match']});
     }
 
     async getByDiscordUserIdAndTournamentId(args: {discordUserId: string, tournamentId: string}): Promise<UserTournamentParticipation> {

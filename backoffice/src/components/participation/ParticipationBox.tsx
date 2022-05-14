@@ -1,8 +1,6 @@
 import { InfoIcon } from "@chakra-ui/icons";
 import { Box, BreadcrumbSeparator, Center, Container, Flex, HStack, Icon, Spacer, Text, Tooltip } from "@chakra-ui/react";
 import { FC, useEffect, useRef, useState } from "react";
-import { MdEmojiEvents, MdStar } from 'react-icons/md'
-import { BetStatus } from "../../models/Bet";
 import { Match } from "../../models/Match";
 import { UserTournamentParticipation } from "../../models/UserTournamentParticipation";
 import UserTournamentParticipationMatchItem from "../matches/MatchItem";

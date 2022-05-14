@@ -25,7 +25,7 @@ const getGuildTournaments = async (guildId: string): Promise<AutocompleteOption[
 }
 
 const getUserTournaments = async (userId: string): Promise<AutocompleteOption[]> => {
-    return getParticipationsByUserId(userId).then((participations: UserTournamentParticipation[]) => {
+    return getParticipationsByUserId(userId, ['tournament']).then((participations: UserTournamentParticipation[]) => {
         return participations.map((participation: UserTournamentParticipation) => {
             return {name: participation.tournament.label, value: participation.tournament.label}
         })

@@ -14,7 +14,7 @@ interface BetListProps {
 const BetList: FC<BetListProps> = ({tournamentId}: BetListProps) => {
     const { data: userTournamentParticipations, refetch, error, isLoading } = useQuery<UserTournamentParticipation[]>(
         'getCurrentUserParticipations',
-        getCurrentUserParticipations
+        () => getCurrentUserParticipations()
     );
 
     return <CustomSkeleton w="100%" h="100vh" error={error} isLoaded={!isLoading}>

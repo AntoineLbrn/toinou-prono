@@ -27,8 +27,8 @@ class UserTournamentParticipationController {
 
     async getByUser(req: Request, res: Response) {
         const discordUserId = res.locals.jwtPayload.discordUserId;
-
-        userTournamentParticipationService.get({discordUserId})
+        const relations = req.query.relations && typeof req.query.relations === 'string' ? req.query.relations.split(','): undefined;
+        userTournamentParticipationService.get({discordUserId, relations})
         .then((participations) => {
             return res.json(participations)
         })
@@ -40,8 +40,9 @@ class UserTournamentParticipationController {
 
     async getByDiscordUserId(req: Request, res: Response) {
         const { discordUserId } = req.params;
+        const relations = req.query.relations && typeof req.query.relations === 'string' ? req.query.relations.split(','): undefined;
 
-        userTournamentParticipationService.get({discordUserId})
+        userTournamentParticipationService.get({discordUserId, relations})
         .then((participations) => {
             return res.json(participations)
         })
