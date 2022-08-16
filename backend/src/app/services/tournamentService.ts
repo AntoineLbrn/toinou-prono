@@ -20,8 +20,8 @@ class tournamentService {
         return newTournament.save();
     }
 
-    async get(id: string): Promise<Tournament> {
-        return await Tournament.findOneOrFail(id, { relations: ['participations', 'serversSubscriptions', 'matches', 'matches.bets', 'participations.participant'] });
+    async get(id: string, relations ?: string[]): Promise<Tournament> {
+        return await Tournament.findOneOrFail(id, { relations: relations ? relations : ['participations', 'serversSubscriptions', 'matches', 'matches.bets', 'participations.participant'] });
     }
 
     async edit(tournament: Partial<Tournament>): Promise<Tournament> {

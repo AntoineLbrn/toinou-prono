@@ -10,7 +10,7 @@ interface AdminTournamentEditProps {
     id: string
 }
 const AdminTournamentEdit: FC<AdminTournamentEditProps> = ({ id }: AdminTournamentEditProps) => {
-    const { data: tournament, refetch, isLoading, error } = useQuery('getTournament', () => getTournament(id));
+    const { data: tournament, refetch, isLoading, error } = useQuery('getTournament', () => getTournament(id, ['matches', 'matches.bets',]));
 
     return <AdminEditTournamentContextProvider>
             <Container maxW="container.xl">

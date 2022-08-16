@@ -25,7 +25,8 @@ class TournamentController {
 
   async get(req: Request, res: Response) {
     const { id } = req.params;
-    tournamentService.get(id).then((tournament: Tournament) => {
+    const relations = req.query.relations as string;
+    tournamentService.get(id, relations ? relations.split(',') : []).then((tournament: Tournament) => {
       return res.status(201).json(tournament);
     }).catch((error) => {
       res.statusMessage = error.toString();
