@@ -34,8 +34,8 @@ async function start() {
             guild: { log: true },
           });
         const rule = new schedule.RecurrenceRule();
-        rule.hour = 17;
-        rule.minute = 0;
+        rule.hour = 9;
+        rule.minute = 30;
         rule.tz = 'Europe/Paris';
         await client.initApplicationPermissions();
         schedule.scheduleJob(rule, () => { 
