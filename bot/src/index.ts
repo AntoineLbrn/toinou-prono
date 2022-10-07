@@ -35,7 +35,7 @@ async function start() {
           });
         const rule = new schedule.RecurrenceRule();
         rule.hour = 9;
-        rule.minute = 30;
+        rule.minute = 45;
         rule.tz = 'Europe/Paris';
         await client.initApplicationPermissions();
         schedule.scheduleJob(rule, () => { 
