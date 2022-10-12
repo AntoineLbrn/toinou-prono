@@ -33,9 +33,9 @@ class tournamentSubscriptionService {
         return subscription;
     }
 
-    async getByDiscordServerId(args: {discordServerId: string}): Promise<ServerTournamentSubscribtion[]> {
+    async getByDiscordServerId(args: {discordServerId: string, relations: string[]}): Promise<ServerTournamentSubscribtion[]> {
         const server = await serverService.getServerByDiscordServerId(args.discordServerId);
-        return ServerTournamentSubscribtion.find({where: { server }, relations: ['tournament', 'tournament.matches', 'tournament.matches.bets']});
+        return ServerTournamentSubscribtion.find({where: { server }, relations: args.relations.length ? args.relations : ['tournament', 'tournament.matches', 'tournament.matches.bets'] });
     }
 
     async getByLabelAndServerId(label: string, serverId: string): Promise<ServerTournamentSubscribtion> {

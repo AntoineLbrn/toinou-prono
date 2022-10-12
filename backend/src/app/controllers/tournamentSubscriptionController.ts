@@ -35,7 +35,8 @@ class tournamentSubscriptionController {
 
     async getByDiscordServerId(req: Request, res: Response) {
         const { discordServerId } = req.params;
-        tournamentSubscriptionService.getByDiscordServerId({discordServerId})
+        const relations = req.query.relations && typeof req.query.relations === 'string' ? req.query.relations.split(','): undefined;
+        tournamentSubscriptionService.getByDiscordServerId({discordServerId, relations})
         .then((tournament) => {
           return res.json(tournament)
         })
