@@ -9,4 +9,9 @@ export const useStatisticsRoutes = (routes: Router) => {
         check("tournamentLabel", "tournamentLabel is required").notEmpty(),
         check("numberOfDays", "numberOfDays is required").notEmpty(),
     ], statisticsController.getFromTournamentLabel);
+
+    routes.get("/statistics/now/tournamentLabel=:tournamentLabel", [
+        checkApiKey, 
+        check("tournamentLabel", "tournamentLabel is required").notEmpty(),
+    ], statisticsController.getCurrentMatchesFromTournamentLabel);
 }

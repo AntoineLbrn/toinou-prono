@@ -13,6 +13,17 @@ class StatisticsController {
           return res.status(400).send();
         });
     }
+
+    async getCurrentMatchesFromTournamentLabel(req: Request, res: Response) {
+      const { tournamentLabel } = req.params;
+      statisticsService.getCurrentFromTournamentLabel(tournamentLabel).then((matchStatistics: MatchStatistics[]) => {
+        return res.status(201).json(matchStatistics);
+      }).catch((error) => {
+          console.log(error)
+        res.statusMessage =  error.code + ' ' + error.toString();
+        return res.status(400).send();
+      });
+    }
 }
 
 export default new StatisticsController();
