@@ -10,12 +10,15 @@ interface AutocompleteOption {
 }
 
 export const autocompleteTournaments = async (interaction: AutocompleteInteraction): Promise<void>  => {
+    setTimeout(() => {
+        if (!interaction.responded) interaction.respond([]).catch((err) => console.log(err))
+    }, 2000)
     const options = interaction.guildId ? await getGuildTournaments(interaction.guildId) : await getUserTournaments(interaction.user.id);
-    return interaction.respond(options).catch((err) => console.log(err));
+    if (!interaction.responded) interaction.respond(options).catch((err) => console.log(err));
 }
 
 const getGuildTournaments = async (guildId: string): Promise<AutocompleteOption[]> => {
-    return getSubscriptionsByServerId(guildId).then((subscriptions: ServerTournamentSubscribtion[]) => {
+    return getSubscriptionsByServerId(guildId, ["tournament"]).then((subscriptions: ServerTournamentSubscribtion[]) => {
         return subscriptions.map((subscription: ServerTournamentSubscribtion) => {
             return {name: subscription.tournament.label, value: subscription.tournament.label}
         })

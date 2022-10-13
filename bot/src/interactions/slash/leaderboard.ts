@@ -1,4 +1,4 @@
-import { CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import LeaderboardEmbed from "../../components/embed/Leaderboard";
 import getLeaderboardByTournamentLabel from "../../api/tournaments/getLeaderboardByTournamentLabel";
@@ -7,15 +7,15 @@ import { autocompleteTournaments } from "../../utils/autocompleteTournaments";
 
 @Discord()
 abstract class Leaderboard {
-    @Slash("leaderboard", {description: 'Affiche ton rank pour une compétition'})
+    @Slash({name: "leaderboard", description: 'Affiche ton rank pour une compétition'})
     public rank(
-        @SlashOption("tournament", { description: "Nom du tournoi à consulter", autocomplete: autocompleteTournaments, type: "STRING", required: true}) tournamentName: string,
+        @SlashOption({name: "tournament", description: "Nom du tournoi à consulter", autocomplete: autocompleteTournaments, type: ApplicationCommandOptionType.String, required: true}) tournamentName: string,
         interaction: CommandInteraction,
     ): void {
         getLeaderboardByTournamentLabel(tournamentName).then((leaderboard: LeaderboardModel) => {
-            interaction.reply({content: 'voici le leaderboard', embeds: [new LeaderboardEmbed(leaderboard)]});
+            interaction.editReply({content: 'voici le leaderboard', embeds: [new LeaderboardEmbed(leaderboard)]});
         }).catch((error) => {
-            interaction.reply(error.message);
+            interaction.editReply(error.message);
         });
     }
 }

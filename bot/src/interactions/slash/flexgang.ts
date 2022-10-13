@@ -1,4 +1,4 @@
-import { CommandInteraction, MessageActionRow } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import FlexGangEmbed from "../../components/embed/FlexGangEmbed";
 
@@ -8,8 +8,8 @@ const LANES = [
 
 @Discord()
 abstract class Flexgang {
-  @Slash("flexgang", {description: "Assigne une lane aléatoire à chacun des membres de ton vocal"})
-  public flexgang(@SlashOption("joueurs", { description: "Noms des joueurs séparés par des espaces", required: false}) playersAsString: string, interaction: CommandInteraction): void {
+  @Slash({name: "flexgang", description: "Assigne une lane aléatoire à chacun des membres de ton vocal"})
+  public flexgang(@SlashOption({name: "joueurs", description: "Noms des joueurs séparés par des espaces", required: false, type: ApplicationCommandOptionType.String}) playersAsString: string, interaction: CommandInteraction): void {
     let players: string[] = [];
     if (!!playersAsString) {
         players.push(...playersAsString.split(' ')); 

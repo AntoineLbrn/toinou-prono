@@ -1,14 +1,13 @@
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
-class FlexGangEmbed extends MessageEmbed {
+class FlexGangEmbed extends EmbedBuilder {
     constructor(roles: string[], rolesDistribution: Map<string,string>) {
         const description = roles.map((role) => role + ' ' + rolesDistribution.get(role)).join('\n')
-        super (
-            new MessageEmbed()
-            .setColor('#FF0EFF')
-            .setTitle('FLEXGANG')
-            .setDescription(description)
-        )
+        super ({ 
+            color: 0xFF0EFF,
+            title:'FLEXGANG',
+            description: description
+        })
     }
 }
 export default FlexGangEmbed;

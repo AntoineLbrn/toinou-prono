@@ -5,11 +5,10 @@ import getParticipationsByUserId from "../../api/participations/getParticipation
 import { UserTournamentParticipation } from "../../models/UserTournamentParticipation";
 import ServerTournamentSubscribtion from "../../models/ServerTournamentSubscription";
 import SendTournamentsEmbedMessage from "../../useCases/tournaments/SendTournamentsEmbedMessage";
-import TournamentEmbed from "../../components/embed/Tournament";
 
 @Discord()
 abstract class TournamentList {
-  @Slash("tournament-list")
+  @Slash({name: "tournament-list", description: "List of tournamenet recorded"})
   public tournamentList(interaction: CommandInteraction): void {
     if (interaction.guildId) {
         this.showServerTournaments(interaction);  
@@ -20,22 +19,23 @@ abstract class TournamentList {
 
   private showDMTournaments = (interaction: CommandInteraction) => {
     getParticipationsByUserId(interaction.user.id).then(async (participations: UserTournamentParticipation[]) => {
-      await interaction.deferReply();
       SendTournamentsEmbedMessage.execute({tournaments: participations.map((participation) => participation.tournament), channel: interaction.user});
 
+      console.log("editingreply")
       interaction.editReply({
         content: `Voici la liste de tes tournois`,
       })
 
+
     }).catch((err) => {
-      interaction.reply(err.message)
+      interaction.editReply(err.message)
     });
   }
 
   private showServerTournaments = (interaction: CommandInteraction) => {
     if (interaction.guildId) {
-      getSubscriptionsByServerId(interaction.guildId).then(async (subscriptions: ServerTournamentSubscribtion[]) => {
-        await interaction.deferReply();
+      getSubscriptionsByServerId(interaction.guildId, ["tournament"]).then(async (subscriptions: ServerTournamentSubscribtion[]) => {
+        console.log(subscriptions)
         SendTournamentsEmbedMessage.execute({tournaments: subscriptions.map((subscription) => subscription.tournament), channel: interaction.channel});
   
         interaction.editReply({
@@ -43,10 +43,10 @@ abstract class TournamentList {
         })
   
       }).catch((err) => {
-        interaction.reply(err.message)
+        interaction.editReply(err.message)
       });
     } else {
-      interaction.reply('Unexpected error')
+      interaction.editReply('Unexpected error')
     }
   }
 }

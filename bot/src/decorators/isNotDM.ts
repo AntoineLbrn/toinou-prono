@@ -9,7 +9,7 @@ const isNotDM: GuardFunction<CommandInteraction> = async (
     if (!!interaction.guildId) {
         await next();
     } else {
-        interaction.reply(`Tu ne peux pas utiliser cette commande en DM`);
+        interaction.editReply(`Tu ne peux pas utiliser cette commande en DM`);
     }
 };
 

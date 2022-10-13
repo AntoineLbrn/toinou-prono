@@ -1,12 +1,12 @@
-import { OverwriteResolvable, Collection, Role, Guild } from "discord.js";
+import { OverwriteResolvable, Collection, Role, Guild,PermissionsBitField} from "discord.js";
 
 const getChannelPermissions = (args: {guild: Guild, role: Role}): OverwriteResolvable[] | Collection<string, OverwriteResolvable> => {
     return [
         {
-            deny: ["VIEW_CHANNEL", "SEND_MESSAGES"], id: args.guild.roles.everyone,
+            deny: [ PermissionsBitField.Flags.ViewChannel ,  PermissionsBitField.Flags.SendMessages ], id: args.guild.roles.everyone,
         }, 
         {
-            allow: "VIEW_CHANNEL", id : args.role.id
+            allow:  PermissionsBitField.Flags.ViewChannel , id : args.role.id
         }
     ]
 }

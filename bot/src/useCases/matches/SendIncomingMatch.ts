@@ -1,4 +1,4 @@
-import { Message, MessageActionRow } from "discord.js";
+import { Message } from "discord.js";
 import { Match } from "../../models/Match";
 import MatchEmbed from "../../components/embed/Match";
 import SendMatchBetsButtons from "../bets/SendMatchBetsButtons";

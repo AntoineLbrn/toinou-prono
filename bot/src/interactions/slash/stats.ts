@@ -1,4 +1,4 @@
-import { CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction } from "discord.js";
 import { Discord, Guard, Slash, SlashOption } from "discordx";
 import isAdminOrDM from "../../decorators/isAdminOrDM";
 import getTournamentStatisticsByName from "../../api/statistics/getTournamentStatisticsByName";
@@ -8,14 +8,15 @@ import { autocompleteTournaments } from "../../utils/autocompleteTournaments";
 @Discord()
 abstract class Stats {
 
-  @Slash("stats", {description: "Affiche les stats des matchs du jour"})
+  @Slash({name: "stats", description: "Affiche les stats des matchs du jour"})
   @Guard(isAdminOrDM)
-  public stats(@SlashOption("tournament", { description: "Nom du tournoi", autocomplete: autocompleteTournaments, type: "STRING", required: true}) tournamentName: string, interaction: CommandInteraction): void {
+  public stats(@SlashOption({name: "tournament", description: "Nom du tournoi", autocomplete: autocompleteTournaments, type: ApplicationCommandOptionType.String, required: true}) tournamentName: string, interaction: CommandInteraction): void {
     getTournamentStatisticsByName({label: tournamentName, numberOfDays: 0}).then((statistics) => {
-        interaction.reply("Voici les statistiques d'aujourd'hui")
+        interaction.editReply("Voici les statistiques d'aujourd'hui")
         SendTournamentStatistics.execute({channel: interaction.channel ? interaction.channel : interaction.user, statistics})
     }).catch((err) => {
-        interaction.reply(err.message)
+        console.log(err.message)
+        interaction.editReply(err.message)
     });
   }
 }

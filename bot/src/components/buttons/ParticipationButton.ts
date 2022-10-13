@@ -1,12 +1,12 @@
-import { MessageButton } from "discord.js";
+import { ButtonBuilder, ButtonStyle } from "discord.js";
 import Tournament from "../../models/Tournament";
 
-class ParticipationButton extends MessageButton {
+class ParticipationButton extends ButtonBuilder {
     constructor(tournament: Tournament) {
         super({
             label: `Rejoindre`,
             customId: `participation-button ${tournament.id}`,
-            style: "PRIMARY",
+            style: ButtonStyle.Primary,
             emoji: "🥳",
         });
 

@@ -3,9 +3,9 @@ import { Discord, Guild, Slash } from "discordx";
 
 @Discord()
 abstract class HelloWorld {
-  @Slash("hello")
+  @Slash({name: "hello", description: "Say hello to Toinou-Prono"})
   public hello(interaction: CommandInteraction): void {
-    interaction.reply(`Eh la bonne soirée ${interaction.user.username}`);
+    interaction.editReply({ content: `Eh la bonne soirée ${interaction.user.username}`});
   }
 }
 

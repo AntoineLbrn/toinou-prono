@@ -1,17 +1,16 @@
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import MatchStatistics from "../../models/MatchStatistics";
 
-class MatchStatisticsEmbed extends MessageEmbed {
+class MatchStatisticsEmbed extends EmbedBuilder {
     constructor(matchStatistics: MatchStatistics) {
         const description = matchStatistics.stats.map((betStatistics) => {
             return `${betStatistics.betLabel} : ${betStatistics.percentage}% (${betStatistics.numberOfVotesForBet} votes)`
         }).join('\n')
-        super (
-            new MessageEmbed()
-            .setColor('#FF0E0E')
-            .setTitle(matchStatistics.match.label)
-            .setDescription(description)
-        )
+        super ({
+            color: 0xFF0E0E,
+            title: matchStatistics.match.label,
+            description: description
+        })
     }
 }
 export default MatchStatisticsEmbed;

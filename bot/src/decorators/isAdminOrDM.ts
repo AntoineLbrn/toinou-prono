@@ -7,7 +7,7 @@ const isAdminOrDM: GuardFunction<CommandInteraction> = async (
     next
   ) => {
     if (interaction.memberPermissions && (BigInt(interaction.memberPermissions.bitfield) & BigInt(0x8)) != BigInt(0x8)) {
-        interaction.reply(`Tu n'as pas les droits pour utiliser cette commande (ratio)`);
+        interaction.editReply(`Tu n'as pas les droits pour utiliser cette commande (ratio)`);
     } else {
         await next();
     }

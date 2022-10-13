@@ -7,7 +7,7 @@ import getSubscriptionByTournamentIdAndServerId from "../../api/subscriptions/ge
 
 @Discord()
 class ParticipationButtonHandler {
-    @ButtonComponent(new RegExp("^participation-button ."), )
+    @ButtonComponent({id: new RegExp("^participation-button .")})
     handle(interaction: ButtonInteraction) {
         interaction.deferUpdate();
 

@@ -1,12 +1,12 @@
-import { MessageButton } from "discord.js";
+import { ButtonBuilder, ButtonStyle } from "discord.js";
 import { Bet } from "../../models/Bet";
 
-class BetButton extends MessageButton {
+class BetButton extends ButtonBuilder {
     constructor(bet: Bet) {
         super({
             label: bet.label,
             customId: `bet-button ${bet.id}`,
-            style: "PRIMARY",
+            style: ButtonStyle.Primary,
             emoji: "✉️",
         });
 

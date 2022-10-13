@@ -15,9 +15,10 @@ const hasSubscriptionRoleBeenSet = (subscription: ServerTournamentSubscribtion):
 @Discord()
 class ChannelSelectHandler {
 
-    @SelectMenuComponent(new RegExp("^select-bettor-channel ."), )
+    @SelectMenuComponent({id:new RegExp("^select-bettor-channel .")})
     @Guard(isAdmin)
     handle(interaction: SelectMenuInteraction) {
+        interaction.deferReply();
         const subscriptionId = interaction.customId.split(' ')[1];
         const guild = interaction.guild;
         if (guild) {
@@ -29,24 +30,23 @@ class ChannelSelectHandler {
                         if (channel) {
                             sendSubscriptionRoleAndChannel({id: subscription.id, bettorChannelId: channel.id, bettorChannelLabel: channel.name}).then(() => {
                                 channel.edit({permissionOverwrites: getChannelPermissions({guild: guild, role: role})})
-                                interaction.reply(`Le channel a été configuré, tout est bon ${interaction.user.toString()}`);        
+                                interaction.editReply(`Le channel a été configuré, tout est bon ${interaction.user.toString()}`);        
                             });
                         } else {
-                            interaction.reply(`Choisis un nouveau channel, celui-ci n'existe plus !`);
+                            interaction.editReply(`Choisis un nouveau channel, celui-ci n'existe plus !`);
                         }
                     } else {
-                        interaction.reply(`Choisis un nouveau rôle, celui-ci n'existe plus !`);
+                        interaction.editReply(`Choisis un nouveau rôle, celui-ci n'existe plus !`);
                     }
                 } else {
-                    interaction.reply(`Choisis un rôle avant un canal`);
+                    interaction.editReply(`Choisis un rôle avant un canal`);
                 }
             }).catch(async (err) => {
-                await interaction.deferReply();
                 interaction.editReply(err.message);
             });
     
         } else {
-            interaction.reply('Erreur inattendue');
+            interaction.editReply('Erreur inattendue');
         }
     }
 }

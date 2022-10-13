@@ -1,7 +1,7 @@
-import { MessageSelectMenu, RoleManager } from "discord.js";
+import { SelectMenuBuilder, RoleManager } from "discord.js";
 import ServerTournamentSubscribtion from "../../models/ServerTournamentSubscription";
 
-class RoleSelect extends MessageSelectMenu {
+class RoleSelect extends SelectMenuBuilder {
     constructor(roles: RoleManager, subscription: ServerTournamentSubscribtion) {
         const rolesAsOptions = roles.cache.map((role) => {
             return {
@@ -9,12 +9,11 @@ class RoleSelect extends MessageSelectMenu {
                 value: role.id
             }
         });
-        super (
-            new MessageSelectMenu()
-            .setCustomId(`select-bettor-role ${subscription.id}`)
-            .setPlaceholder('Choisis le rôle de parieur')
-            .addOptions(rolesAsOptions ? rolesAsOptions : []),
-        )
+        super ({
+            custom_id: `select-bettor-role ${subscription.id}`,
+            placeholder: 'Choisis le rôle de parieur',
+            options: rolesAsOptions ? rolesAsOptions : []
+        })
     }
 }
 export default RoleSelect;

@@ -1,11 +1,11 @@
-import { MessageButton } from "discord.js";
+import { ButtonBuilder, ButtonStyle } from "discord.js";
 import Tournament from "../../models/Tournament";
 
-class TournamentLinkButton extends MessageButton {
+class TournamentLinkButton extends ButtonBuilder {
     constructor(tournament: Tournament) {
         super({
             label: tournament.label,
-            style: "LINK",
+            style: ButtonStyle.Link,
             url: `${process.env.FRONTEND_URL}/tournament/${encodeURI(tournament.id)}`
         });
 

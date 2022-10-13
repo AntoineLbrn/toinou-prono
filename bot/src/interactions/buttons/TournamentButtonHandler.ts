@@ -7,7 +7,7 @@ import SendTournamentIncomingMatches from "../../useCases/matches/SendTournament
 
 @Discord()
 class TournamentButtonHandler {
-    @ButtonComponent(new RegExp("^tournament-button ."), )
+    @ButtonComponent({id: new RegExp("^tournament-button .")})
     @Guard(isAdminOrDM)
     handle(interaction: ButtonInteraction) {
         const tournamentId = interaction.customId.split(' ')[1];

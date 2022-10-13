@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { ComponentBuilder, Message } from "discord.js";
 import TournamentButton from "../../components/buttons/TournamentButton";
 import Tournament from "../../models/Tournament";
 import sendMany from "../../utils/sendMany";

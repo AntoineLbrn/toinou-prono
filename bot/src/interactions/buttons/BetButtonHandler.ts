@@ -6,7 +6,7 @@ import sendVote from "../../api/votes/sendVote";
 
 @Discord()
 class BetButtonHandler {
-    @ButtonComponent(new RegExp("^bet-button ."), )
+    @ButtonComponent({id: new RegExp("^bet-button .")})
     handle(interaction: ButtonInteraction) {
         interaction.deferUpdate();
         const betId = interaction.customId.split(' ')[1];
