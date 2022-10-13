@@ -43,8 +43,8 @@ class statisticsService {
             
         const now = new Date();
         const nextHour = new Date();
-        now.setTime(now.getTime() - 30)      
-        nextHour.setTime(nextHour.getTime() + 30)      
+        now.setTime(now.getTime() - 1800000)      
+        nextHour.setTime(nextHour.getTime() + 1800000)      
 
         const matches = await Match.createQueryBuilder('match')
             .leftJoin('match.tournament', 'tournament')
@@ -52,8 +52,8 @@ class statisticsService {
             .leftJoinAndSelect('bets.votes', 'votes')
             .leftJoinAndSelect('match.votes', 'matchVotes')
             .where('tournament.label = :label', {label})
-            .andWhere('match.date > :startDate', {now})
-            .andWhere('match.date < :tomorrow', {nextHour})
+            .andWhere('match.date > :now', {now})
+            .andWhere('match.date < :nextHour', {nextHour})
             .getMany();
 
          return matches.map((match) => ({
