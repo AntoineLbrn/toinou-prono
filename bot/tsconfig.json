@@ -18,7 +18,7 @@
       "declaration": false,
       "importHelpers": true, // required
       "forceConsistentCasingInFileNames": true,
-      "skipLibCheck": false
+      "skipLibCheck": true
     },
     "include": [
       "src/**/*",
