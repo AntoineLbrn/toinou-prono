@@ -74,8 +74,13 @@ class tournamentService {
         const events = await lolesportService.getFuturEvents(tournament.externalTournamentId);
         const newMatches = [];
         for (const event of events) {
-            newMatches.push(await matchService.createMatchFromLolesportEvent(event, tournament.id));
+            try {
+                newMatches.push(await matchService.createMatchFromLolesportEvent(event, tournament.id));
+            } catch (e) {
+                console.log(e.message)
+            }
         };
+        console.log(newMatches)
         tournament.matches.push(...newMatches);
         return tournament.save();
 

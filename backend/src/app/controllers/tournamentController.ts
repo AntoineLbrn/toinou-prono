@@ -6,7 +6,8 @@ import tournamentService from "../services/tournamentService";
 
 class TournamentController {
   async index(req: Request, res: Response) {
-    const tournaments = await Tournament.find({ relations: ['serversSubscriptions', 'serversSubscriptions.server', 'matches', 'participations'] });
+    const relations = req.query.relations as string;
+    const tournaments = await Tournament.find({ relations: relations ? relations.split(',') : ['serversSubscriptions', 'serversSubscriptions.server', 'matches', 'participations'] });
 
     return res.json(tournaments);
   }
