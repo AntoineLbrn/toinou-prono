@@ -38,7 +38,7 @@ export class Bet extends BaseEntity {
       this.votes.forEach((vote) => {
         if (!vote.valid) {
           vote.valid = true;
-          vote.participation.points+=1;
+          vote.participation.points+= this.match.pointsValue ? this.match.pointsValue : 1;
           vote.save();
           vote.participation.save();
         }
@@ -54,7 +54,7 @@ export class Bet extends BaseEntity {
         if (vote.valid) {
           console.log(vote)
           vote.valid = false;
-          vote.participation.points-=1;
+          vote.participation.points-= this.match.pointsValue ? this.match.pointsValue : 1;
           vote.save();
           vote.participation.save();
         }

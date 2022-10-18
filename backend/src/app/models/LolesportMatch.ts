@@ -27,4 +27,8 @@ interface LolesportMatch {
     }
 }
 
+export const isMatchBO5 = (match: LolesportMatch): boolean => {
+    return match.strategy.type === "bestOf" && match.strategy.count === 5
+}
+
 export default LolesportMatch;

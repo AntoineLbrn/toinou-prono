@@ -8,6 +8,7 @@ import { UserTournamentParticipation } from "../entities/UserTournamentParticipa
 import CustomError from "../errors/CustomError";
 import Leaderboard from "../models/Leaderboard";
 import LolesportEvent from "../models/LolesportEvent";
+import { isMatchBO5 } from "../models/LolesportMatch";
 import lolesportService from "./lolesportService";
 import matchService from "./matchService";
 import serverService from "./serverService";
@@ -75,6 +76,9 @@ class tournamentService {
         const newMatches = [];
         for (const event of events) {
             try {
+                if (isMatchBO5(event.match)) {
+                    newMatches.push(await matchService.createPerfectScoreMatchFromLolesportEvent(event, tournament.id));
+                }
                 newMatches.push(await matchService.createMatchFromLolesportEvent(event, tournament.id));
             } catch (e) {
                 console.log(e.message)

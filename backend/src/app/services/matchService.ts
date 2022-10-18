@@ -5,12 +5,12 @@ import { Server } from "../entities/Server";
 import { ServerTournamentSubscribtion } from "../entities/ServerTournamentSubscribtion";
 import { Tournament } from "../entities/Tournament";
 import LolesportEvent from "../models/LolesportEvent";
-import LolesportMatch, { LolesportMatchOutcome } from "../models/LolesportMatch";
+import LolesportMatch, { isMatchBO5, LolesportMatchOutcome } from "../models/LolesportMatch";
 import betService from "./betService";
 
 class matchService {
     
-    async create(label: string, description: string, date: Date, tournamentId: string, manualVoteClosing: boolean, externalMatchId?: string): Promise<Match> {
+    async create(label: string, description: string, date: Date, tournamentId: string, manualVoteClosing: boolean, externalMatchId?: string, pointsValue?: number): Promise<Match> {
         const tournament = await Tournament.findOne(tournamentId);
         if (!tournament)
             throw new Error('No tournament found for the given ID');
@@ -20,7 +20,8 @@ class matchService {
             description,
             date,
             tournament,
-            externalMatchId
+            externalMatchId,
+            pointsValue
         });
         
         return newMatch.save();
@@ -42,7 +43,7 @@ class matchService {
     }
 
     async invalidateAllBetsExcept(matchId: string, betId: string): Promise<Match> {
-        const match = await Match.findOne(matchId, {relations: ['bets']});
+        const match = await Match.findOne(matchId, {relations: ['bets', 'bets.match']});
         if (!match)
             throw new Error ('No match found for the given ID');
             
@@ -60,11 +61,18 @@ class matchService {
     async createMatchFromLolesportEvent(event: LolesportEvent, tournamentId: string): Promise<Match> {
         const label = `${event.match.teams[0].name} vs ${event.match.teams[1].name}`;
         const description = `${event.type} - ${event.blockName} - ${event.league.name}`;
-        const date = new Date(event.startTime);
-        console.log(date)
+        const date = new Date(event.startTime);        
         const match = await this.create(label, description, date, tournamentId, false, event.match.id)
-        await betService.createBetsFromLolesportEvent(event, match.id);
+        await betService.createBetsFromLolesportEvent(event, match.id);  
+        return match.save();
+    }
 
+    async createPerfectScoreMatchFromLolesportEvent(event: LolesportEvent, tournamentId: string): Promise<Match> {
+        const label = `[PERFECT SCORE] ${event.match.teams[0].name} vs ${event.match.teams[1].name}`;
+        const description = `${event.type} - ${event.blockName} - ${event.league.name}`;
+        const date = new Date(event.startTime);        
+        const match = await this.create(label, description, date, tournamentId, false, event.match.id + "-BO5", 2)
+        await betService.createPerfectScoreBetsFromLolesportEvent(event, match.id);  
         return match.save();
     }
 

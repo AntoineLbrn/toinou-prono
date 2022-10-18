@@ -30,6 +30,9 @@ export class Match extends BaseEntity {
   @Column({nullable: true})
   discordMessageId?: string;
 
+  @Column({nullable: true})
+  pointsValue?: number;
+
   @ManyToOne(() => Tournament, (tournament) => tournament.matches)
   tournament: Tournament;
 
